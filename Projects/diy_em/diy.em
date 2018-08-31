@@ -133,6 +133,267 @@ macro AddMacroComment()
 	}
 
 }
+
+/*Save system's information*/ 
+macro SaveSysInfo( ) 
+{ 
+    Name    = Ask( "Please enter your name:" ) 
+    Version = Ask( "Version:" ) 
+    DefineStr = Ask( "#ifdef:" )
+
+    hSysBuf = NewBuf( "SystemInfo" ) 
+    if( hSysBuf == hNil ){ 
+        return 1 
+    }
+
+    AppendBufLine( hSysBuf, Name )//line 0 
+    AppendBufLine( hSysBuf, Version )//line 1 
+    AppendBufLine( hSysBuf, DefineStr )//line 2
+
+    SaveBufAs( hSysBuf, "system.ini" ) 
+}
+
+///*-------------------------------------------------------------------------
+//I N S E R T   H E A D E R
+//
+//
+//Inserts a comment header block at the top of the current function. 
+//This actually works on any type of symbol, not just functions.
+//
+//
+//To use this, define an environment variable "MYNAME" and set it
+//to your email name.  eg. set MYNAME=raygr
+//-------------------------------------------------------------------------*/
+//macro AddFuncHeader()
+//{
+//    hSysBuf = OpenBuf( "system.ini" )   // 打开当前工程下面的配置文件，有版本号及作者的信息
+//    if( hSysBuf == hNil ){
+//        return 1
+//    }
+//
+//    // 一行行读取配置文件信息
+//    szMyName  = GetBufLine( hSysBuf, 0 ) // 著者
+//    szVersion = GetBufLine( hSysBuf, 1 ) // 软件版本号
+//
+//    SysTime = GetSysTime( 0 )
+//    year  = SysTime.Year
+//    month = SysTime.Month
+//    day   = SysTime.Day
+//    hour  = SysTime.Hour + 8
+//    minute= SysTime.Minute
+//    
+//// Get a handle to the current file buffer and the name
+//// and location of the current symbol where the cursor is.
+//hbuf = GetCurrentBuf()
+//
+//
+//if( hbuf == hNil ){
+//   return 1
+//}
+//
+//
+//ln = GetBufLnCur( hbuf )
+//
+//
+//    totalLine = 0
+//    tmpLine = ln +1
+//    
+//    i = 0;
+//    find_flag = 0  // 该表示用来表示是否找到 "{",从而判断是否可以开始解析字符
+//
+//
+//    /*
+//     * 分两步来添加函数的注释
+//     * 1. 获取函数名字
+//     * 2. 获取函数参数
+//    */
+//
+//
+//    funcContent = " "  // 初始化函数的所有注释信息为空
+//    
+//    while ( totalLine < 20 )  // 防止函数名跨越的行数太长
+//    {
+//        // 1. 逐行获取数据
+//tmpLineContent = GetBufLine( hbuf, tmpLine )
+//tmpLineLen = GetBufLineLength( hbuf, tmpLine)
+//tmpIndex = 0
+//// 遍历 该句来判断是否有 "{"存在，有则证明函数头已包含在缓冲数据中
+//while ( tmpIndex < tmpLineLen )
+//{
+//if ( "{" == tmpLineContent[tmpIndex] )
+//{
+//   find_flag = 1;
+//break;
+//}
+//tmpIndex = tmpIndex + 1
+//}
+//        // 说明该行函数仍未结束，添加改行信息到总的信息后面
+//funcContent = cat ( funcContent, tmpLineContent )
+//
+//
+//if ( find_flag == 1 )
+//{
+//break;
+//}
+//
+//
+//totalLine = totalLine + 1
+//tmpLine = tmpLine +1
+//    }
+//    // InsBufLine( hbuf, ln ++, "/**\@all      @funcContent@" ) 
+//
+//
+//    // 找到所有需要的字符信息之后，开始找出函数名出来，只需要从 "("处断开即可
+//    indexLeft = 0;
+//    while ( (funcContent[indexLeft]) != "(" )
+//    {
+//        indexLeft = indexLeft +1
+//    }
+//    funName =  strtrunc(funcContent, indexLeft)
+//
+//
+//    InsBufLine( hbuf, ln ++, "/* Function      @funName@()" ) 
+//    InsBufLine( hbuf, ln ++, " * Description    " )
+//    
+//    //InsBufLine( hbuf, ln ++, "/**\@param      @funcContent@" ) 
+//    
+//    // 再找到右括号　")"的位置
+//    indexRight = 0
+//    while ( (funcContent[indexRight]) != ")" )
+//    {
+//        indexRight = indexRight + 1
+//    }
+//
+//
+//    // 接下去解析函数内部的参数
+//    index = 0
+//    paramEnd = 0
+//    paramStr = " "
+//    index = indexLeft + 1   // 跳过 左括号 "("
+//    while ( index <= indexRight )
+//    {
+//        paramEnd = index
+//        if ( (funcContent[index] == ",") || (funcContent[index] == ")") )  // 说明一个参数结束
+//        {
+//        
+//            
+//            // 再往前找到的字符为 空格" "，"*" , "&"，则说明是参数的起始位置
+//            index = index -1
+//            while ( index > indexLeft )
+//           {
+//           if ( ( funcContent[index] == " " ) 
+//                || ( funcContent[index] == "*" )
+//                || ( funcContent[index] == "&" ) 
+//                 )
+//           {
+//                paramStr = strmid(funcContent, index+1, paramEnd)
+//                         InsBufLine( hbuf, ln ++, " * param[in]      @paramStr@    :" ) 
+//                         break;
+//           }
+//                    else
+//                    {
+//                         index = index -1
+//                    }
+//            }
+//            
+//            
+//        }
+//        index = paramEnd + 1
+//    }
+//
+//
+//    InsBufLine( hbuf, ln++, " * return         " )
+//    InsBufLine( hbuf, ln++, " * modify         @szMyName@  @szVersion@  @year@-@month@-@day@ @hour@:@minute@       " )
+//        // 注释结束
+//    InsBufLine( hbuf, ln++, " */" )
+//
+//
+//// put the insertion point inside the header comment
+//SetBufIns( hbuf, ln, 10 )
+//CloseBuf( hSysBuf )
+//
+//}
+
+/*-------------------------------------------------------------------------
+	I N S E R T   H E A D E R
+
+	Inserts a comment header block at the top of the current function. 
+	This actually works on any type of symbol, not just functions.
+
+	To use this, define an environment variable "MYNAME" and set it
+	to your email name.  eg. set MYNAME=raygr
+-------------------------------------------------------------------------*/
+macro AddFuncHeader()
+{
+    hSysBuf = OpenBuf( "system.ini" )
+    if( hSysBuf == hNil ){
+        return 1
+    }
+
+    szMyName  = GetBufLine( hSysBuf, 0 )
+    szVersion = GetBufLine( hSysBuf, 1 )
+
+    SysTime = GetSysTime( 0 )
+    date    = StrMid( SysTime, 6, 19 )
+    
+	// Get a handle to the current file buffer and the name
+	// and location of the current symbol where the cursor is.
+	hbuf = GetCurrentBuf()
+
+	if( hbuf == hNil ){
+	    return 1
+	}
+
+	ln = GetBufLnCur( hbuf )
+
+	// begin assembling the title string
+	
+	//InsBufLine(hbuf, ln+1, "/*-------------------------------------------------------------------------*")
+	
+	/* if owner variable exists, insert Owner: name */
+	/*if (strlen(szMyName) > 0){
+	    InsBufLine( hbuf, ln + 2, "Function:" )
+	    InsBufLine( hbuf, ln + 3, "Created By:   @szMyName@" )
+	    InsBufLine( hbuf, ln + 4, "Created Date: @date@" )
+	    InsBufLine( hbuf, ln + 5, "Modified By:" )
+	    InsBufLine( hbuf, ln + 6, "Modified Date:" )
+	    InsBufLine( hbuf, ln + 7, "Parameters:" )
+	    InsBufLine( hbuf, ln + 8, "Returns:" )
+	    InsBufLine( hbuf, ln + 9, "Calls:" )
+	    InsBufLine( hbuf, ln + 10, "Called By:" )
+		ln = ln + 10
+	}else{
+		ln = ln + 2
+	}*/
+
+	lnStartPos = ln + 2;
+	if (strlen(szMyName) > 0){
+		InsBufLine( hbuf, ln + 1, "/*" )
+	    InsBufLine( hbuf, ln + 2, " * Function:       " )
+	    InsBufLine( hbuf, ln + 3, " * Description:    " )
+	    InsBufLine( hbuf, ln + 4, " * Calls:          " )
+	    InsBufLine( hbuf, ln + 5, " * Called By:      " )
+	    InsBufLine( hbuf, ln + 6, " * Table Accessed: " )
+	    InsBufLine( hbuf, ln + 7, " * Table Updated:  " )
+	    InsBufLine( hbuf, ln + 8, " * Input:          " )
+	    InsBufLine( hbuf, ln + 9, " * Output:         " )
+	    InsBufLine( hbuf, ln + 10, " * Return:         " )
+	    InsBufLine( hbuf, ln + 11, " * Others:         " )
+		ln = ln + 11
+	}else{
+		ln = ln + 2
+	}
+
+	//InsBufLine(hbuf, ln+1, "*-------------------------------------------------------------------------*/")
+	InsBufLine( hbuf, ln + 1, " */" )
+	
+	// put the insertion point inside the header comment
+	SetBufIns( hbuf, lnStartPos, 20 )
+
+	CloseBuf( hSysBuf )
+}
+
+
 /** set current cursor position **/
 macro setCursor(hbuf, tc, Ln,pos)
 {
@@ -408,3 +669,16 @@ macro num2str()
 	selfstr("}")
 	selfstr("")
 }
+
+macro structtips()
+{
+	hwnd = GetCurrentWnd()
+	lnFirst = GetWndSelLnFirst(hwnd)
+	lnLast = GetWndSelLnLast(hwnd)
+	 
+	hbuf = GetCurrentBuf()
+	InsBufLine(hbuf, lnFirst, "#ifdef @sz@")
+	InsBufLine(hbuf, lnLast+2, "#endif /* @sz@ */")
+}
+
+
