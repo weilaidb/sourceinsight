@@ -125,74 +125,6 @@ macro InsertPrintkHex()
     InsBufLine(hbuf, lnFirst, szFunc);
 }
 
-/* InsertFileHeader:
-
-   Inserts a comment header block at the top of the current function. 
-   This actually works on any type of symbol, not just functions.
-
-   To use this, define an environment variable "MYNAME" and set it
-   to your email name.  eg. set MYNAME=raygr
-*/
-
-macro InsertFileHeader()
-{
-    szMyName = getenv(MyName)
-
-    hbuf = GetCurrentBuf()
-
-    InsBufLine(hbuf, 0, "/***************************************************************************")
-    InsBufLine(hbuf, 1, "** 版权所有:  WeiLai Copyright (c) 2010-2015  ******************************")
-    fPath = GetBufName(hbuf)
-	if (fPath != hNil)
-	{
-		fLen = strlen(fPath)
-
-		len = fLen
-		while(StrMid(fPath, len - 1, len) != "\\")
-		{
-		    len = len - 1
-		}
-		fileName = StrMid(fPath, len, fLen - 2)
-	}
-
-    InsBufLine(hbuf, 2, "** 文件名称:  @fileName@  [@fPath@]")
-//    InsBufLine(hbuf, 3, "** 文件标识: ")
-//    InsBufLine(hbuf, 4, "** 内容摘要:  ")
-    InsBufLine(hbuf, 3, "** 当前版本:  v1.0")
-
-    /* if owner variable exists, insert Owner: name */
-    if (strlen(szMyName) > 0)
-    {
-        sz = "** 作    者:  @szMyName@"
-    }
-    else
-    {
-        sz = "** 作    者: "
-    }
-
-    InsBufLine(hbuf, 4, sz)
-
-    // Get current time
-    szTime  = GetSysTime(1)
-    Day      = szTime.Day
-    Month   = szTime.Month
-    Year     = szTime.Year
-    if (Day < 10)
-        szDay = "0@Day@"
-    else
-        szDay = Day               
-
-    InsBufLine(hbuf, 5,   "** 完成日期: @Year@年@Month@月@szDay@日")
-    InsBufLine(hbuf, 6,   "** 修改记录: ")
-    InsBufLine(hbuf, 7,   "** 修改记录: ")
-    InsBufLine(hbuf, 8, "** 修改日期: ")
-    InsBufLine(hbuf, 9, "** 版本号  : ")
-    InsBufLine(hbuf, 10, "** 修改人  : ")
-    InsBufLine(hbuf, 11, "** 修改内容: ")
-    InsBufLine(hbuf, 12, "***************************************************************************/")
-}
-
-
 
 // Inserts "Returns True .. or False..." at the current line
 macro ReturnTrueOrFalse()
@@ -1898,63 +1830,6 @@ macro MultiLineComment()
     }  
     SetWndSel(hwnd, selection)  
 }  
-
-/******************************************************************************
- * InsFunHeader -- insert function's information
- *
- * modification history
- * --------------------
- * 01a, 23mar2003, added DESCRIPTION by t357
- * 01a, 05mar2003, t357 written
- * --------------------
- ******************************************************************************/
-macro InsertFunHeader()
-{
-	// Get the owner's name from the environment variable: szMyName.
-	// If the variable doesn't exist, then the owner field is skipped.
-	/*#########################################################
-#########################################################
-#######  Set szMyName variable to your name    ########
-#######  for example    szMyName = "t357"     ########
-#########################################################   
-#########################################################*/
-	szMyName = "" //empty
-	// Get a handle to the current file buffer and the name
-	// and location of the current symbol where the cursor is.
-	hbuf = GetCurrentBuf() //get file buffer
-	szFunc = GetCurSymbol() //get the curren symbol where the cursor is.
-	ln = GetSymbolLine(szFunc)
-	// Get current time
-	szTime = GetSysTime(1)
-	Day = szTime.Day
-	Month = szTime.Month
-	Year = szTime.Year
-	if (Day < 10)
-	szDay = "0@Day@"
-	else
-	szDay = Day
-	szMonth = (Month)
-	szInf = Ask("Enter the information of function:")
-	szDescription = Ask("Enter the description of function:")
-	// begin assembling the title string
-	sz = "/******************************************************************************"
-	InsBufLine(hbuf, ln, sz)
-	InsBufLine(hbuf, ln + 1, " * @szFunc@ - @szInf@")
-	InsBufLine(hbuf, ln + 2, " * DESCRIPTION: - ")
-	InsBufLine(hbuf, ln + 3, " *    @szDescription@ ")
-	// remove by t357.    CutWord(szDescription)
-	InsBufLine(hbuf, ln + 4, " * 输入参数: ")
-	InsBufLine(hbuf, ln + 5, " * 输出参数: ")
-	InsBufLine(hbuf, ln + 6, " * 返回结果: 0-成功,其它-失败")
-	InsBufLine(hbuf, ln + 7, " * ")
-	InsBufLine(hbuf, ln + 8, " * modification history")
-	InsBufLine(hbuf, ln + 9, " * --------------------")
-	InsBufLine(hbuf, ln + 10, " * 01a, @szDay@@szMonth@@Year@, @szMyName@ written")
-	InsBufLine(hbuf, ln + 11, " * --------------------")
-	InsBufLine(hbuf, ln + 12, " ******************************************************************************/")
-	// put the insertion point inside the header comment
-	SetBufIns(hbuf, ln + 1, strlen(szFunc) + strlen(szInf) + 8)
-}
 
 
 /*---END---*/
