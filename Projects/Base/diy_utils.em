@@ -17,6 +17,9 @@ source insight 宏定义文件v2.4
 source insight自定义宏，添加常用宏定义说明，整合到一个文件中
 头文件增加说明
 
+source insight 宏定义文件v2.5
+取消注释对首字符为空的进行处理
+
 
 
 常用规则           快捷键定义
@@ -60,6 +63,9 @@ GetWndSelIchFirst(hwnd)
 GetWndSelIchLim(hwnd)
 #设置选中内容为替换字符
 SetBufSelText(hbuf, replacetext)
+#替换ln行的hbuf中的数据使用字符进行替换
+PutBufLine (hbuf, ln, s)
+Replaces the line of text for line number ln in the file buffer hbuf with the string in s.
 
 
 **/
@@ -784,10 +790,25 @@ macro UnMultiLineComment()
             Ln = Ln + 1
             continue
         }
+        Cn=0
+        while(Cn <= len)
+        {
+			if(StrMid(buf,Cn,Cn+1) == " ")
+			{
+				Cn = Cn +1
+			}
+			else
+			{
+				break
+			}
+        }
+        
 
-        if(StrMid(buf, 0, 1) == "/"){       //需要取消注释,防止只有单字符的行
-            if(StrMid(buf, 1, 2) == "/"){
-                PutBufLine(hbuf, Ln, StrMid(buf, 2, Strlen(buf)))
+        if(StrMid(buf, Cn+0, Cn+1) == "/"){       //需要取消注释,防止只有单字符的行
+            if(StrMid(buf, Cn+1, Cn+2) == "/"){
+            	rs = StrMid(buf, Cn+2, Strlen(buf))
+            	rs = cat(StrMid(buf, 0, Cn), rs)
+                PutBufLine(hbuf, Ln, rs)
 //                PutBufLine(hbuf, Ln, Cat("//", buf))
             }
 //            PutBufLine(hbuf, Ln, Cat("//", buf))
