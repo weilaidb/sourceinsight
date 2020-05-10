@@ -23,6 +23,11 @@ source insight 宏定义文件v2.5
 增加星号注释
 
 
+source insight 宏定义文件v2.6
+添加选择行打印printf变量
+
+
+
 常用规则           快捷键定义
 MultiLineComment   Ctrl + / 多行注释
 UnMultiLineComment Ctrl + Q  反多行注释
@@ -31,6 +36,10 @@ deleteline         Ctrl + L 删除当前行
 enternewline       Ctrl + Enter 换一新行
 InsertFileHeader               插入文件头
 InsertFunHeader                插入函数头
+printvar()           Ctrl+6    打印变量
+addmultiline()       Ctrl+7    插入多行空行
+addxinghaocomment()  Ctrl+8    插入多行*号注释
+
 
 */
 
@@ -1142,4 +1151,104 @@ macro addxinghaocomment()
 	SaveBuf(hbuf)
 	 
 }
+
+//打印变量
+macro printvar()
+{
+    hwnd = GetCurrentWnd()
+    selection = GetWndSel(hwnd)
+    LnFirst =GetWndSelLnFirst(hwnd)      //取首行行号
+    LnLast =GetWndSelLnLast(hwnd)      //取末行行号
+    hbuf = GetCurrentBuf()
+
+    IchFirst = GetWndSelIchFirst (hwnd)
+    IchLast = GetWndSelIchLim (hwnd)
+    //msg ("@IchFirst@ IchFirst.")
+    //msg ("@IchLast@ IchLast .")
+
+
+   // if(GetBufLine(hbuf, 0) ==""){
+   //     stop
+   // }
+
+    Ln = Lnfirst
+    buf = GetBufLine(hbuf, Ln)
+    len = strlen(buf)
+
+    pstr = "    printf(\""
+    midstr = " : %u\\n\", "
+    rightsign = ");"
+    result = ""
+
+	
+    newWrFirstLn = Lnlast + 1
+    newWrLastLn  = newWrFirstLn + Lnlast - Lnfirst
+    newWrLn = newWrFirstLn
+	count=0
+	
+    while(Ln <= Lnlast) {
+        buf = GetBufLine(hbuf, Ln)  //取Ln对应的行
+        if(buf ==""){                   //跳过空行
+            Ln = Ln + 1
+            continue
+        }
+
+        len = strlen(buf)
+//		msg(cat("length is:",len))
+		tn = len
+		
+		lastvarstartpos = 0
+		lastvarendpos = 0
+		varname=""
+		typename=""
+		while(tn > 0)
+		{
+			chr = strmid(buf, tn-1, tn)
+//			if(("(" == chr) 
+//			||(")" == chr))
+//			{
+//				break
+//			}
+
+			if(";" == chr && len > 1)
+			{
+				lastvarendpos = tn - 1
+//				msg(cat("lastvar pos end:",lastvarendpos))
+			}
+			else if((" " == chr)&&(tn < lastvarendpos))
+			{
+				lastvarstartpos = tn
+//				msg(cat("lastvar pos start:",lastvarstartpos))
+				break
+			}
+			
+			tn = tn-1
+		}
+
+		if(lastvarendpos - lastvarstartpos > 1)
+		{
+			lastword=(strmid(buf, lastvarstartpos, lastvarendpos))
+			result = cat(pstr,lastword)
+			result = cat(result,midstr)
+			result = cat(result,lastword)
+			result = cat(result,rightsign)
+			
+//			msg(result)
+			InsBufLine(hbuf,newWrLn, result)
+			count = count + 1
+		}
+		
+        Ln = Ln + 1
+        newWrLn = newWrLn + 1
+    }
+
+	if(count == 0)
+	{
+		msg("【生成printf打印变量】请选择带变量的行!!!")
+	}
+
+	SaveBuf(hbuf)
+}
+
+
 
