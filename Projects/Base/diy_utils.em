@@ -19,7 +19,8 @@ source insight自定义宏，添加常用宏定义说明，整合到一个文件中
 
 source insight 宏定义文件v2.5
 取消注释对首字符为空的进行处理
-
+增加多行空行
+增加星号注释
 
 
 常用规则           快捷键定义
@@ -66,6 +67,14 @@ SetBufSelText(hbuf, replacetext)
 #替换ln行的hbuf中的数据使用字符进行替换
 PutBufLine (hbuf, ln, s)
 Replaces the line of text for line number ln in the file buffer hbuf with the string in s.
+#提示输入框 Ask (prompt_string)
+Prompts the user with a message box window displaying the string prompt_string. The Ask message box has an OK button, and a Cancel button. Clicking the Cancel button stops the macro.
+##CharFromAscii (ascii_code)
+Returns a string containing a single character that corresponds to the ASCII code in ascii_code.
+#保存缓存到磁盘 SaveBuf (hbuf)
+Saves a file buffer to disk. Hbuf is the buffer handle.
+
+
 
 
 **/
@@ -334,6 +343,10 @@ macro JumpAnywhere()
 	symbol = Ask("What declaration would you like to see?")
 	JumpToSymbolDef(symbol)
 }
+
+
+
+
 
 
 // list all siblings of a user specified symbol
@@ -1032,6 +1045,101 @@ macro InsertFunHeader()
 }
 
 
+macro AskSysmbol()
+{
+	symbolname = Ask("What symbol do you want to locate?")
+	symbol = GetSymbolLocation(symbolname)
+	if (symbol == nil)
+	    Msg (symbolname # " was not found")
+	else
+	    {
+	    hsyml = SymbolChildren(symbol)
+	    cchild = SymListCount(hsyml)
+	    ichild = 0
+	    while (ichild < cchild)
+	        {
+	        childsym = SymListItem(hsyml, ichild)
+	        Msg (childsym.symbol # " was found in " 
+	            # childsym.file # " at line " # 
+	childsym.lnFirst)
+	        ichild = ichild + 1
+	        }
+	    SymListFree(hsyml)
+	    }
 
 
+}
+//插入多行空行
+macro addmultiline()
+{
+    hwnd = GetCurrentWnd()
+    selection = GetWndSel(hwnd)
+    LnFirst =GetWndSelLnFirst(hwnd)      //取首行行号
+    LnLast =GetWndSelLnLast(hwnd)      //取末行行号
+    hbuf = GetCurrentBuf()
+
+    IchFirst = GetWndSelIchFirst (hwnd)
+    IchLast = GetWndSelIchLim (hwnd)
+    //msg ("@IchFirst@ IchFirst.")
+    //msg ("@IchLast@ IchLast .")
+
+    Ln = Lnfirst
+    buf = GetBufLine(hbuf, Ln)
+    len = strlen(buf)
+    
+	nums = Ask("prepare add multi lines, Input Add Line Num:")
+	if (nums != "")
+	{
+		
+	}
+    while(Ln <= Lnfirst + nums) {
+    	showtext=""
+        InsBufLine(hbuf,Ln, showtext)
+        Ln = Ln + 1
+    }
+	SaveBuf(hbuf)
+	
+//    Save_Tabs_To_Spaces()
+    
+}
+
+
+//插入多行*号注释
+macro addxinghaocomment()
+{
+    hwnd = GetCurrentWnd()
+    selection = GetWndSel(hwnd)
+    LnFirst =GetWndSelLnFirst(hwnd)      //取首行行号
+    LnLast =GetWndSelLnLast(hwnd)      //取末行行号
+    hbuf = GetCurrentBuf()
+
+    IchFirst = GetWndSelIchFirst (hwnd)
+    IchLast = GetWndSelIchLim (hwnd)
+    //msg ("@IchFirst@ IchFirst.")
+    //msg ("@IchLast@ IchLast .")
+
+    Ln = Lnfirst
+    buf = GetBufLine(hbuf, Ln)
+    len = strlen(buf)
+    
+	nums = Ask("prepare add xinghao comment, Input Add Line Num:")
+	if (nums == "")
+	{
+		return
+	}
+	showtextFirst="/**"
+	showtextMiddle="** "
+	showtextLast="**/"
+
+	InsBufLine(hbuf,Ln, showtextFirst)
+	Ln = Ln + 1
+    while(Ln <= Lnfirst + nums - 2) {
+    	
+        InsBufLine(hbuf,Ln, showtextMiddle)
+        Ln = Ln + 1
+    }
+    InsBufLine(hbuf,Ln, showtextLast)
+	SaveBuf(hbuf)
+	 
+}
 
