@@ -1,86 +1,88 @@
 /* Utils.em - a small collection of useful editing macros */
 /*
 
-source insight ºê¶¨ÒåÎÄ¼şv2.1
-source insight×Ô¶¨Òåºê£¬Ö§³ÖÉÏÒÆĞĞ£¬ÏÂÒÆĞĞ£¬¸´ÖÆĞĞ£¬É¾³ıĞĞ£¬ÖĞ¼äÌø×ªµ½ÏÂÒ»ĞĞ£¬×¢ÊÍÓë·´×¢ÊÍ£¨Ö§³Ö¶àĞĞ£©
+source insight å®å®šä¹‰æ–‡ä»¶v2.1
+source insightè‡ªå®šä¹‰å®ï¼Œæ”¯æŒä¸Šç§»è¡Œï¼Œä¸‹ç§»è¡Œï¼Œå¤åˆ¶è¡Œï¼Œåˆ é™¤è¡Œï¼Œä¸­é—´è·³è½¬åˆ°ä¸‹ä¸€è¡Œï¼Œæ³¨é‡Šä¸åæ³¨é‡Šï¼ˆæ”¯æŒå¤šè¡Œï¼‰
 
 
-source insight ºê¶¨ÒåÎÄ¼şv2.2
-source insight×Ô¶¨Òåºê£¬Ö§³ÖÉÏÒÆĞĞ£¬ÏÂÒÆĞĞ£¬¸´ÖÆĞĞ£¨Ö§³Ö¶àĞĞ£©£¬É¾³ıĞĞ£¬ÖĞ¼äÌø×ªµ½ÏÂÒ»ĞĞ£¬×¢ÊÍÓë·´×¢ÊÍ£¨Ö§³Ö¶àĞĞ£©¡£
+source insight å®å®šä¹‰æ–‡ä»¶v2.2
+source insightè‡ªå®šä¹‰å®ï¼Œæ”¯æŒä¸Šç§»è¡Œï¼Œä¸‹ç§»è¡Œï¼Œå¤åˆ¶è¡Œï¼ˆæ”¯æŒå¤šè¡Œï¼‰ï¼Œåˆ é™¤è¡Œï¼Œä¸­é—´è·³è½¬åˆ°ä¸‹ä¸€è¡Œï¼Œæ³¨é‡Šä¸åæ³¨é‡Šï¼ˆæ”¯æŒå¤šè¡Œï¼‰ã€‚
 
 
-source insight ºê¶¨ÒåÎÄ¼şv2.3
-source insight×Ô¶¨Òåºê£¬Ö§³ÖÉÏÒÆĞĞ£¬ÏÂÒÆĞĞ£¬¸´ÖÆĞĞ£¨Ö§³Ö¶àĞĞ£©£¬É¾³ıĞĞ£¬ÖĞ¼äÌø×ªµ½ÏÂÒ»ĞĞ£¬×¢ÊÍÓë·´×¢ÊÍ£¨Ö§³Ö¶àĞĞ£©¡£
-Ö§³Ö¶àĞĞ¸´ÖÆ¡£
+source insight å®å®šä¹‰æ–‡ä»¶v2.3
+source insightè‡ªå®šä¹‰å®ï¼Œæ”¯æŒä¸Šç§»è¡Œï¼Œä¸‹ç§»è¡Œï¼Œå¤åˆ¶è¡Œï¼ˆæ”¯æŒå¤šè¡Œï¼‰ï¼Œåˆ é™¤è¡Œï¼Œä¸­é—´è·³è½¬åˆ°ä¸‹ä¸€è¡Œï¼Œæ³¨é‡Šä¸åæ³¨é‡Šï¼ˆæ”¯æŒå¤šè¡Œï¼‰ã€‚
+æ”¯æŒå¤šè¡Œå¤åˆ¶ã€‚
 
-source insight ºê¶¨ÒåÎÄ¼şv2.4
-source insight×Ô¶¨Òåºê£¬Ìí¼Ó³£ÓÃºê¶¨ÒåËµÃ÷£¬ÕûºÏµ½Ò»¸öÎÄ¼şÖĞ
-Í·ÎÄ¼şÔö¼ÓËµÃ÷
+source insight å®å®šä¹‰æ–‡ä»¶v2.4
+source insightè‡ªå®šä¹‰å®ï¼Œæ·»åŠ å¸¸ç”¨å®å®šä¹‰è¯´æ˜ï¼Œæ•´åˆåˆ°ä¸€ä¸ªæ–‡ä»¶ä¸­
+å¤´æ–‡ä»¶å¢åŠ è¯´æ˜
 
-source insight ºê¶¨ÒåÎÄ¼şv2.5
-È¡Ïû×¢ÊÍ¶ÔÊ××Ö·ûÎª¿ÕµÄ½øĞĞ´¦Àí
-Ôö¼Ó¶àĞĞ¿ÕĞĞ
-Ôö¼ÓĞÇºÅ×¢ÊÍ
-
-
-source insight ºê¶¨ÒåÎÄ¼şv2.6
-Ìí¼ÓÑ¡ÔñĞĞ´òÓ¡printf±äÁ¿
+source insight å®å®šä¹‰æ–‡ä»¶v2.5
+å–æ¶ˆæ³¨é‡Šå¯¹é¦–å­—ç¬¦ä¸ºç©ºçš„è¿›è¡Œå¤„ç†
+å¢åŠ å¤šè¡Œç©ºè¡Œ
+å¢åŠ æ˜Ÿå·æ³¨é‡Š
 
 
+source insight å®å®šä¹‰æ–‡ä»¶v2.6
+æ·»åŠ é€‰æ‹©è¡Œæ‰“å°printfå˜é‡
 
-³£ÓÃ¹æÔò           ¿ì½İ¼ü¶¨Òå
-MultiLineComment   Ctrl + / ¶àĞĞ×¢ÊÍ
-UnMultiLineComment Ctrl + Q  ·´¶àĞĞ×¢ÊÍ
-duplicateselect    Ctrl + D ¿½±´Ò»·İÄÚÈİµ½µ±Ç°Ñ¡ÖĞÄÚÈİºóÃæ
-deleteline         Ctrl + L É¾³ıµ±Ç°ĞĞ
-enternewline       Ctrl + Enter »»Ò»ĞÂĞĞ
-InsertFileHeader               ²åÈëÎÄ¼şÍ·
-InsertFunHeader                ²åÈëº¯ÊıÍ·
-printvar()           Ctrl+6    ´òÓ¡±äÁ¿
-addmultiline()       Ctrl+7    ²åÈë¶àĞĞ¿ÕĞĞ
-addxinghaocomment()  Ctrl+8    ²åÈë¶àĞĞ*ºÅ×¢ÊÍ
+
+
+å¸¸ç”¨è§„åˆ™           å¿«æ·é”®å®šä¹‰
+MultiLineComment   Ctrl + / å¤šè¡Œæ³¨é‡Š
+UnMultiLineComment Ctrl + Q  åå¤šè¡Œæ³¨é‡Š
+duplicateselect    Ctrl + D æ‹·è´ä¸€ä»½å†…å®¹åˆ°å½“å‰é€‰ä¸­å†…å®¹åé¢
+deleteline         Ctrl + L åˆ é™¤å½“å‰è¡Œ
+enternewline       Ctrl + Enter æ¢ä¸€æ–°è¡Œ
+InsertFileHeader               æ’å…¥æ–‡ä»¶å¤´
+InsertFunHeader                æ’å…¥å‡½æ•°å¤´
+printvar()           Ctrl+6    æ‰“å°å˜é‡
+addmultiline()       Ctrl+7    æ’å…¥å¤šè¡Œç©ºè¡Œ
+addxinghaocomment()  Ctrl+8    æ’å…¥å¤šè¡Œ*å·æ³¨é‡Š
+ä¸Šç§»ä¸€è¡Œ           Ctrl+Up
+ä¸‹ç§»ä¸€è¡Œ           Ctrl+Down
 
 
 */
 
 /**
-source insight³£ÓÃ½Ó¿Ú
-#»ñÈ¡lnfirstĞĞµÄÄÚÈİ
+source insightå¸¸ç”¨æ¥å£
+#è·å–lnfirstè¡Œçš„å†…å®¹
 GetBufLine(hbuf,lnfirst)
-#»ñÈ¡text,[0,chfirst)µÄÄÚÈİ
+#è·å–text,[0,chfirst)çš„å†…å®¹
 strmid(curlntext, 0, chfirst)
-#´òÓ¡str
+#æ‰“å°str
 msg(str)
-#ºó×ºmiddleµ½headerºóÃæ
+#åç¼€middleåˆ°headeråé¢
 cat(header, middle)
-#É¾³ılnĞĞÄÚÈİ
+#åˆ é™¤lnè¡Œå†…å®¹
 DelBufLine(hbuf, ln)
-#²åÈëlnĞĞÄÚÈİÎªshowtext
+#æ’å…¥lnè¡Œå†…å®¹ä¸ºshowtext
 InsBufLine(hbuf,ln, showtext)
-#»ñÈ¡Ñ¡ÖĞµÄÄÚÈİ
+#è·å–é€‰ä¸­çš„å†…å®¹
 GetBufSelText(hbuf)
-#»ñÈ¡µ±Ç°´°¿Ú¾ä±ú
+#è·å–å½“å‰çª—å£å¥æŸ„
 GetCurrentWnd()
-#»ñÈ¡µ±Ç°±à¼­ÄÚÈİ¾ä±ú
+#è·å–å½“å‰ç¼–è¾‘å†…å®¹å¥æŸ„
 GetCurrentBuf()
-#»ñÈ¡Ñ¡ÖĞÄÚÈİµÄÊ×ĞĞ
+#è·å–é€‰ä¸­å†…å®¹çš„é¦–è¡Œ
 GetWndSelLnFirst(hwnd)
-#»ñÈ¡Ñ¡ÖĞÄÚÈİµÄÄ©ĞĞ
+#è·å–é€‰ä¸­å†…å®¹çš„æœ«è¡Œ
 GetWndSelLnLast(hwnd)
-#»ñÈ¡Ñ¡ÖĞ×Ö·ûÊ×Î»ÖÃ
+#è·å–é€‰ä¸­å­—ç¬¦é¦–ä½ç½®
 GetWndSelIchFirst(hwnd)
-#»ñÈ¡Ñ¡ÖĞ×Ö·ûÄ©Î»ÖÃ£¿
+#è·å–é€‰ä¸­å­—ç¬¦æœ«ä½ç½®ï¼Ÿ
 GetWndSelIchLim(hwnd)
-#ÉèÖÃÑ¡ÖĞÄÚÈİÎªÌæ»»×Ö·û
+#è®¾ç½®é€‰ä¸­å†…å®¹ä¸ºæ›¿æ¢å­—ç¬¦
 SetBufSelText(hbuf, replacetext)
-#Ìæ»»lnĞĞµÄhbufÖĞµÄÊı¾İÊ¹ÓÃ×Ö·û½øĞĞÌæ»»
+#æ›¿æ¢lnè¡Œçš„hbufä¸­çš„æ•°æ®ä½¿ç”¨å­—ç¬¦è¿›è¡Œæ›¿æ¢
 PutBufLine (hbuf, ln, s)
 Replaces the line of text for line number ln in the file buffer hbuf with the string in s.
-#ÌáÊ¾ÊäÈë¿ò Ask (prompt_string)
+#æç¤ºè¾“å…¥æ¡† Ask (prompt_string)
 Prompts the user with a message box window displaying the string prompt_string. The Ask message box has an OK button, and a Cancel button. Clicking the Cancel button stops the macro.
 ##CharFromAscii (ascii_code)
 Returns a string containing a single character that corresponds to the ASCII code in ascii_code.
-#±£´æ»º´æµ½´ÅÅÌ SaveBuf (hbuf)
+#ä¿å­˜ç¼“å­˜åˆ°ç£ç›˜ SaveBuf (hbuf)
 Saves a file buffer to disk. Hbuf is the buffer handle.
 
 
@@ -104,7 +106,7 @@ macro InsertFileHeader()
     hbuf = GetCurrentBuf()
 
     InsBufLine(hbuf, 0, "/***************************************************************************")
-    InsBufLine(hbuf, 1, "** °æÈ¨ËùÓĞ:  WeiLai Copyright (c) 2010-2015  ******************************")
+    InsBufLine(hbuf, 1, "** ç‰ˆæƒæ‰€æœ‰:  WeiLai Copyright (c) 2010-2015  ******************************")
     fPath = GetBufName(hbuf)
 	if (fPath != hNil)
 	{
@@ -118,17 +120,17 @@ macro InsertFileHeader()
 		fileName = StrMid(fPath, len, fLen)
 	}
 
-    InsBufLine(hbuf, 2, "** ÎÄ¼şÃû³Æ:  @fileName@  [@fPath@]")
-    InsBufLine(hbuf, 3, "** µ±Ç°°æ±¾:  v1.0")
+    InsBufLine(hbuf, 2, "** æ–‡ä»¶åç§°:  @fileName@  [@fPath@]")
+    InsBufLine(hbuf, 3, "** å½“å‰ç‰ˆæœ¬:  v1.0")
 
     /* if owner variable exists, insert Owner: name */
     if (strlen(szMyName) > 0)
     {
-        sz = "** ×÷    Õß:  @szMyName@"
+        sz = "** ä½œ    è€…:  @szMyName@"
     }
     else
     {
-        sz = "** ×÷    Õß: "
+        sz = "** ä½œ    è€…: "
     }
 
     InsBufLine(hbuf, 4, sz)
@@ -163,13 +165,13 @@ macro InsertFileHeader()
 	}
 //	msg(headFileFlag)
 	
-    InsBufLine(hbuf, 5,  "** Íê³ÉÈÕÆÚ: @Year@Äê@Month@ÔÂ@szDay@ÈÕ")
-    InsBufLine(hbuf, 6,  "** ĞŞ¸Ä¼ÇÂ¼: ")
-    InsBufLine(hbuf, 7,  "** ĞŞ¸Ä¼ÇÂ¼: ")
-    InsBufLine(hbuf, 8,  "** ĞŞ¸ÄÈÕÆÚ: ")
-    InsBufLine(hbuf, 9,  "** °æ±¾ºÅ  : ")
-    InsBufLine(hbuf, 10, "** ĞŞ¸ÄÈË  : ")
-    InsBufLine(hbuf, 11, "** ĞŞ¸ÄÄÚÈİ: ")
+    InsBufLine(hbuf, 5,  "** å®Œæˆæ—¥æœŸ: @Year@å¹´@Month@æœˆ@szDay@æ—¥")
+    InsBufLine(hbuf, 6,  "** ä¿®æ”¹è®°å½•: ")
+    InsBufLine(hbuf, 7,  "** ä¿®æ”¹è®°å½•: ")
+    InsBufLine(hbuf, 8,  "** ä¿®æ”¹æ—¥æœŸ: ")
+    InsBufLine(hbuf, 9,  "** ç‰ˆæœ¬å·  : ")
+    InsBufLine(hbuf, 10, "** ä¿®æ”¹äºº  : ")
+    InsBufLine(hbuf, 11, "** ä¿®æ”¹å†…å®¹: ")
     if(headFileFlag > 0)
     {
     	InsBufLine(hbuf, 12, "***************************************************************************/")
@@ -183,23 +185,23 @@ macro InsertFileHeader()
 	    InsBufLine(hbuf, 14, "")	    
     }
 
-    InsBufLine(hbuf, 15, "/*****************************Í·ÎÄ¼ş****************************************/")
+    InsBufLine(hbuf, 15, "/*****************************å¤´æ–‡ä»¶****************************************/")
     InsBufLine(hbuf, 16, "")
-    InsBufLine(hbuf, 17, "/*****************************ºê¶¨Òå****************************************/")
+    InsBufLine(hbuf, 17, "/*****************************å®å®šä¹‰****************************************/")
     InsBufLine(hbuf, 18, "")
-    InsBufLine(hbuf, 19, "/*****************************½á¹¹Ìå»òÀàĞÍ¶¨Òå*******************************/")
+    InsBufLine(hbuf, 19, "/*****************************ç»“æ„ä½“æˆ–ç±»å‹å®šä¹‰*******************************/")
     InsBufLine(hbuf, 20, "")
     InsBufLine(hbuf, 21, "")    
-    InsBufLine(hbuf, 22, "/*****************************È«¾Ö±äÁ¿****************************************/")
+    InsBufLine(hbuf, 22, "/*****************************å…¨å±€å˜é‡****************************************/")
     InsBufLine(hbuf, 23, "")
     InsBufLine(hbuf, 24, "")    
-    InsBufLine(hbuf, 25, "/*****************************±¾µØ±äÁ¿****************************************/")
+    InsBufLine(hbuf, 25, "/*****************************æœ¬åœ°å˜é‡****************************************/")
     InsBufLine(hbuf, 26, "")
     InsBufLine(hbuf, 27, "")    
-    InsBufLine(hbuf, 28, "/*****************************º¯Êı»òÀàÉùÃ÷****************************************/")
+    InsBufLine(hbuf, 28, "/*****************************å‡½æ•°æˆ–ç±»å£°æ˜****************************************/")
     InsBufLine(hbuf, 29, "")
     InsBufLine(hbuf, 30, "")
-	InsBufLine(hbuf, 31, "/*****************************º¯Êı»òÀàÊµÏÖ****************************************/")    
+	InsBufLine(hbuf, 31, "/*****************************å‡½æ•°æˆ–ç±»å®ç°****************************************/")    
     InsBufLine(hbuf, 32, "")
     InsBufLine(hbuf, 33, "")
     InsBufLine(hbuf, 34, "")
@@ -209,29 +211,29 @@ macro InsertFileHeader()
     InsBufLine(hbuf, 38, "")
     InsBufLine(hbuf, 39, "")
     InsBufLine(hbuf, 40, "/*****************************by extern \"C\"****************************************/")
-    InsBufLine(hbuf, 41, "/*****************************Í·ÎÄ¼ş****************************************/")
+    InsBufLine(hbuf, 41, "/*****************************å¤´æ–‡ä»¶****************************************/")
     InsBufLine(hbuf, 42, "")
     InsBufLine(hbuf, 43, "")
-    InsBufLine(hbuf, 44, "/*****************************ºê¶¨Òå****************************************/")
+    InsBufLine(hbuf, 44, "/*****************************å®å®šä¹‰****************************************/")
     InsBufLine(hbuf, 45, "")
     InsBufLine(hbuf, 46, "")
 	InsBufLine(hbuf, 47, "#ifdef __cplusplus") 
 	InsBufLine(hbuf, 48, "extern \"C\" {")
 	InsBufLine(hbuf, 49, "#endif")
 	InsBufLine(hbuf, 50, "")	
-    InsBufLine(hbuf, 51, "/*****************************½á¹¹Ìå»òÀàĞÍ¶¨Òå*******************************/")
+    InsBufLine(hbuf, 51, "/*****************************ç»“æ„ä½“æˆ–ç±»å‹å®šä¹‰*******************************/")
     InsBufLine(hbuf, 52, "")
     InsBufLine(hbuf, 53, "")    
-    InsBufLine(hbuf, 54, "/*****************************È«¾Ö±äÁ¿****************************************/")
+    InsBufLine(hbuf, 54, "/*****************************å…¨å±€å˜é‡****************************************/")
     InsBufLine(hbuf, 55, "")
     InsBufLine(hbuf, 56, "")    
-    InsBufLine(hbuf, 57, "/*****************************±¾µØ±äÁ¿****************************************/")
+    InsBufLine(hbuf, 57, "/*****************************æœ¬åœ°å˜é‡****************************************/")
     InsBufLine(hbuf, 58, "")
     InsBufLine(hbuf, 59, "")    
-    InsBufLine(hbuf, 60, "/*****************************º¯Êı»òÀàÉùÃ÷****************************************/")
+    InsBufLine(hbuf, 60, "/*****************************å‡½æ•°æˆ–ç±»å£°æ˜****************************************/")
     InsBufLine(hbuf, 61, "")
     InsBufLine(hbuf, 62, "")
-	InsBufLine(hbuf, 63, "/*****************************º¯Êı»òÀàÊµÏÖ****************************************/")    
+	InsBufLine(hbuf, 63, "/*****************************å‡½æ•°æˆ–ç±»å®ç°****************************************/")    
     InsBufLine(hbuf, 64, "")
 	InsBufLine(hbuf, 65, "")
 	InsBufLine(hbuf, 66, "#ifdef __cplusplus") 
@@ -405,7 +407,7 @@ macro ListAllSiblings(symbol)
 
 
 
-//¿½±´Ò»·İÄÚÈİµ½µ±Ç°Ñ¡ÖĞÄÚÈİºóÃæ
+//æ‹·è´ä¸€ä»½å†…å®¹åˆ°å½“å‰é€‰ä¸­å†…å®¹åé¢
 macro duplicateselect()
 {
     hwnd = GetCurrentWnd();
@@ -431,12 +433,12 @@ macro duplicateselect()
 		curlntext = GetBufLine(hbuf,lnfirst)
 		lastlntext = GetBufLine(hbuf, lnlast)
 		/*
-		** Ìæ»»Ë¼Â·:
-		** Ñ¡ÖĞÖ®Ç°µÄÊÇheader(Î´Ñ¡ÖĞµÄ)
-		** µÚÒ»ĞĞÑ¡ÖĞµÄÊÇselcheader
-		** ºóÃæÑ¡ÖĞµÄÊÇmiddle
-		** ×îºóÒ»ĞĞÎ´Ñ¡ÖĞµÄÊÇtail
-		** ×îºóÒ»ĞĞÑ¡ÖĞµÄÊÇseltail
+		** æ›¿æ¢æ€è·¯:
+		** é€‰ä¸­ä¹‹å‰çš„æ˜¯header(æœªé€‰ä¸­çš„)
+		** ç¬¬ä¸€è¡Œé€‰ä¸­çš„æ˜¯selcheader
+		** åé¢é€‰ä¸­çš„æ˜¯middle
+		** æœ€åä¸€è¡Œæœªé€‰ä¸­çš„æ˜¯tail
+		** æœ€åä¸€è¡Œé€‰ä¸­çš„æ˜¯seltail
 		**/
 		header = ""
 		selheader = ""
@@ -517,7 +519,7 @@ macro duplicateselect()
 	stop;
 }
 
-//¿½±´Ò»·İÄÚÈİµ½µ±Ç°Ñ¡ÖĞÄÚÈİºóÃæ
+//æ‹·è´ä¸€ä»½å†…å®¹åˆ°å½“å‰é€‰ä¸­å†…å®¹åé¢
 macro duplicateselect2()
 {
 	hbufCur = GetCurrentBuf()
@@ -531,8 +533,8 @@ macro duplicateselect2()
 
     hwnd = GetCurrentWnd()
     selection = GetWndSel(hwnd)
-    LnFirst =GetWndSelLnFirst(hwnd)      //È¡Ê×ĞĞĞĞºÅ
-    LnLast =GetWndSelLnLast(hwnd)      //È¡Ä©ĞĞĞĞºÅ
+    LnFirst =GetWndSelLnFirst(hwnd)      //å–é¦–è¡Œè¡Œå·
+    LnLast =GetWndSelLnLast(hwnd)      //å–æœ«è¡Œè¡Œå·
     hbuf = GetCurrentBuf()
 	isym = 0;
 	sellen = strlen(selection)
@@ -572,7 +574,7 @@ macro duplicateselect2()
 	}
 }
 
-//²åÈëµ±Ç°Ñ¡ÔñµÄÄÚÈİ£¬ÔÚÉÏÒ»ĞĞ¡£
+//æ’å…¥å½“å‰é€‰æ‹©çš„å†…å®¹ï¼Œåœ¨ä¸Šä¸€è¡Œã€‚
 macro getselecttext()
 {
 	hbufCur = GetCurrentBuf();
@@ -583,7 +585,7 @@ macro getselecttext()
 
 	InsBufLine(hbufCur, lnCur, sz)
 }
-//¸´ÖÆµ±Ç°ĞĞ£¬Èç¹ûÓĞÑ¡ÖĞµÄÊı¾İ£¬Ôò¸´ÖÆÑ¡ÖĞÊı¾İ
+//å¤åˆ¶å½“å‰è¡Œï¼Œå¦‚æœæœ‰é€‰ä¸­çš„æ•°æ®ï¼Œåˆ™å¤åˆ¶é€‰ä¸­æ•°æ®
 macro duplicateline()
 {
 	hbufCur = GetCurrentBuf()
@@ -595,8 +597,8 @@ macro duplicateline()
 
     hwnd = GetCurrentWnd()
     selection = GetWndSel(hwnd)
-    LnFirst =GetWndSelLnFirst(hwnd)      //È¡Ê×ĞĞĞĞºÅ
-    LnLast =GetWndSelLnLast(hwnd)      //È¡Ä©ĞĞĞĞºÅ
+    LnFirst =GetWndSelLnFirst(hwnd)      //å–é¦–è¡Œè¡Œå·
+    LnLast =GetWndSelLnLast(hwnd)      //å–æœ«è¡Œè¡Œå·
     hbuf = GetCurrentBuf()
 	isym = 0;
 
@@ -670,7 +672,7 @@ macro movedown()
 	}
 }
 
-//Ôö¼Ó×¢ÊÍ»ò·´×¢ÊÍ,²¢ÏÂÒÆÒ»ĞĞ
+//å¢åŠ æ³¨é‡Šæˆ–åæ³¨é‡Š,å¹¶ä¸‹ç§»ä¸€è¡Œ
 macro commentlinedown()
 {
 	hbufCur = GetCurrentBuf()
@@ -701,7 +703,7 @@ macro commentlinedown()
 	}
 }
 
-//Ôö¼Ó×¢ÊÍ»ò·´×¢ÊÍ,²¢ÉÏÒÆÒ»ĞĞ
+//å¢åŠ æ³¨é‡Šæˆ–åæ³¨é‡Š,å¹¶ä¸Šç§»ä¸€è¡Œ
 macro commentlineup()
 {
 	hbufCur = GetCurrentBuf()
@@ -739,8 +741,8 @@ macro MultiLineComment()
 {
     hwnd = GetCurrentWnd()
     selection = GetWndSel(hwnd)
-    LnFirst =GetWndSelLnFirst(hwnd)      //È¡Ê×ĞĞĞĞºÅ
-    LnLast =GetWndSelLnLast(hwnd)      //È¡Ä©ĞĞĞĞºÅ
+    LnFirst =GetWndSelLnFirst(hwnd)      //å–é¦–è¡Œè¡Œå·
+    LnLast =GetWndSelLnLast(hwnd)      //å–æœ«è¡Œè¡Œå·
     hbuf = GetCurrentBuf()
 
     IchFirst = GetWndSelIchFirst (hwnd)
@@ -758,13 +760,13 @@ macro MultiLineComment()
     len = strlen(buf)
 
     while(Ln <= Lnlast) {
-        buf = GetBufLine(hbuf, Ln)  //È¡Ln¶ÔÓ¦µÄĞĞ
-        if(buf ==""){                   //Ìø¹ı¿ÕĞĞ
+        buf = GetBufLine(hbuf, Ln)  //å–Lnå¯¹åº”çš„è¡Œ
+        if(buf ==""){                   //è·³è¿‡ç©ºè¡Œ
             Ln = Ln + 1
             continue
         }
 
-        if(StrMid(buf, 0, 1) == "/"){       //ĞèÒªÈ¡Ïû×¢ÊÍ,·ÀÖ¹Ö»ÓĞµ¥×Ö·ûµÄĞĞ
+        if(StrMid(buf, 0, 1) == "/"){       //éœ€è¦å–æ¶ˆæ³¨é‡Š,é˜²æ­¢åªæœ‰å•å­—ç¬¦çš„è¡Œ
             if(StrMid(buf, 1, 2) == "/"){
 //                PutBufLine(hbuf, Ln, StrMid(buf, 2, Strlen(buf)))
 //                PutBufLine(hbuf, Ln, Cat("//", buf))
@@ -772,7 +774,7 @@ macro MultiLineComment()
             PutBufLine(hbuf, Ln, Cat("//", buf))
         }
 
-        if(StrMid(buf,0,1) !="/"){          //ĞèÒªÌí¼Ó×¢ÊÍ
+        if(StrMid(buf,0,1) !="/"){          //éœ€è¦æ·»åŠ æ³¨é‡Š
             PutBufLine(hbuf, Ln, Cat("//", buf))
         }
         Ln = Ln + 1
@@ -788,8 +790,8 @@ macro UnMultiLineComment()
 {
     hwnd = GetCurrentWnd()
     selection = GetWndSel(hwnd)
-    LnFirst =GetWndSelLnFirst(hwnd)      //È¡Ê×ĞĞĞĞºÅ
-    LnLast =GetWndSelLnLast(hwnd)      //È¡Ä©ĞĞĞĞºÅ
+    LnFirst =GetWndSelLnFirst(hwnd)      //å–é¦–è¡Œè¡Œå·
+    LnLast =GetWndSelLnLast(hwnd)      //å–æœ«è¡Œè¡Œå·
     hbuf = GetCurrentBuf()
 
     IchFirst = GetWndSelIchFirst (hwnd)
@@ -807,8 +809,8 @@ macro UnMultiLineComment()
     len = strlen(buf)
 
     while(Ln <= Lnlast) {
-        buf = GetBufLine(hbuf, Ln)  //È¡Ln¶ÔÓ¦µÄĞĞ
-        if(buf ==""){                   //Ìø¹ı¿ÕĞĞ
+        buf = GetBufLine(hbuf, Ln)  //å–Lnå¯¹åº”çš„è¡Œ
+        if(buf ==""){                   //è·³è¿‡ç©ºè¡Œ
             Ln = Ln + 1
             continue
         }
@@ -826,7 +828,7 @@ macro UnMultiLineComment()
         }
         
 
-        if(StrMid(buf, Cn+0, Cn+1) == "/"){       //ĞèÒªÈ¡Ïû×¢ÊÍ,·ÀÖ¹Ö»ÓĞµ¥×Ö·ûµÄĞĞ
+        if(StrMid(buf, Cn+0, Cn+1) == "/"){       //éœ€è¦å–æ¶ˆæ³¨é‡Š,é˜²æ­¢åªæœ‰å•å­—ç¬¦çš„è¡Œ
             if(StrMid(buf, Cn+1, Cn+2) == "/"){
             	rs = StrMid(buf, Cn+2, Strlen(buf))
             	rs = cat(StrMid(buf, 0, Cn), rs)
@@ -836,7 +838,7 @@ macro UnMultiLineComment()
 //            PutBufLine(hbuf, Ln, Cat("//", buf))
         }
 
-        if(StrMid(buf,0,1) !="/"){          //ĞèÒªÌí¼Ó×¢ÊÍ
+        if(StrMid(buf,0,1) !="/"){          //éœ€è¦æ·»åŠ æ³¨é‡Š
 //            PutBufLine(hbuf, Ln, Cat("//", buf))
         }
         Ln = Ln + 1
@@ -1040,9 +1042,9 @@ macro InsertFunHeader()
 	InsBufLine(hbuf, ln + 2, " * DESCRIPTION: - ")
 	InsBufLine(hbuf, ln + 3, " *    @szDescription@ ")
 	// remove by t357.    CutWord(szDescription)
-	InsBufLine(hbuf, ln + 4, " * ÊäÈë²ÎÊı: ")
-	InsBufLine(hbuf, ln + 5, " * Êä³ö²ÎÊı: ")
-	InsBufLine(hbuf, ln + 6, " * ·µ»Ø½á¹û: 0-³É¹¦,ÆäËü-Ê§°Ü")
+	InsBufLine(hbuf, ln + 4, " * è¾“å…¥å‚æ•°: ")
+	InsBufLine(hbuf, ln + 5, " * è¾“å‡ºå‚æ•°: ")
+	InsBufLine(hbuf, ln + 6, " * è¿”å›ç»“æœ: 0-æˆåŠŸ,å…¶å®ƒ-å¤±è´¥")
 	InsBufLine(hbuf, ln + 7, " * ")
 	InsBufLine(hbuf, ln + 8, " * modification history")
 	InsBufLine(hbuf, ln + 9, " * --------------------")
@@ -1078,13 +1080,13 @@ macro AskSysmbol()
 
 
 }
-//²åÈë¶àĞĞ¿ÕĞĞ
+//æ’å…¥å¤šè¡Œç©ºè¡Œ
 macro addmultiline()
 {
     hwnd = GetCurrentWnd()
     selection = GetWndSel(hwnd)
-    LnFirst =GetWndSelLnFirst(hwnd)      //È¡Ê×ĞĞĞĞºÅ
-    LnLast =GetWndSelLnLast(hwnd)      //È¡Ä©ĞĞĞĞºÅ
+    LnFirst =GetWndSelLnFirst(hwnd)      //å–é¦–è¡Œè¡Œå·
+    LnLast =GetWndSelLnLast(hwnd)      //å–æœ«è¡Œè¡Œå·
     hbuf = GetCurrentBuf()
 
     IchFirst = GetWndSelIchFirst (hwnd)
@@ -1113,13 +1115,13 @@ macro addmultiline()
 }
 
 
-//²åÈë¶àĞĞ*ºÅ×¢ÊÍ
+//æ’å…¥å¤šè¡Œ*å·æ³¨é‡Š
 macro addxinghaocomment()
 {
     hwnd = GetCurrentWnd()
     selection = GetWndSel(hwnd)
-    LnFirst =GetWndSelLnFirst(hwnd)      //È¡Ê×ĞĞĞĞºÅ
-    LnLast =GetWndSelLnLast(hwnd)      //È¡Ä©ĞĞĞĞºÅ
+    LnFirst =GetWndSelLnFirst(hwnd)      //å–é¦–è¡Œè¡Œå·
+    LnLast =GetWndSelLnLast(hwnd)      //å–æœ«è¡Œè¡Œå·
     hbuf = GetCurrentBuf()
 
     IchFirst = GetWndSelIchFirst (hwnd)
@@ -1152,13 +1154,13 @@ macro addxinghaocomment()
 	 
 }
 
-//´òÓ¡±äÁ¿
+//æ‰“å°å˜é‡
 macro printvar()
 {
     hwnd = GetCurrentWnd()
     selection = GetWndSel(hwnd)
-    LnFirst =GetWndSelLnFirst(hwnd)      //È¡Ê×ĞĞĞĞºÅ
-    LnLast =GetWndSelLnLast(hwnd)      //È¡Ä©ĞĞĞĞºÅ
+    LnFirst =GetWndSelLnFirst(hwnd)      //å–é¦–è¡Œè¡Œå·
+    LnLast =GetWndSelLnLast(hwnd)      //å–æœ«è¡Œè¡Œå·
     hbuf = GetCurrentBuf()
 
     IchFirst = GetWndSelIchFirst (hwnd)
@@ -1187,8 +1189,8 @@ macro printvar()
 	count=0
 	
     while(Ln <= Lnlast) {
-        buf = GetBufLine(hbuf, Ln)  //È¡Ln¶ÔÓ¦µÄĞĞ
-        if(buf ==""){                   //Ìø¹ı¿ÕĞĞ
+        buf = GetBufLine(hbuf, Ln)  //å–Lnå¯¹åº”çš„è¡Œ
+        if(buf ==""){                   //è·³è¿‡ç©ºè¡Œ
             Ln = Ln + 1
             continue
         }
@@ -1244,7 +1246,7 @@ macro printvar()
 
 	if(count == 0)
 	{
-		msg("¡¾Éú³Éprintf´òÓ¡±äÁ¿¡¿ÇëÑ¡Ôñ´ø±äÁ¿µÄĞĞ!!!")
+		msg("ã€ç”Ÿæˆprintfæ‰“å°å˜é‡ã€‘è¯·é€‰æ‹©å¸¦å˜é‡çš„è¡Œ!!!")
 	}
 
 	SaveBuf(hbuf)
