@@ -1,4 +1,4 @@
-/* Utils.em - a small collection of useful editing macros */
+/* diy_utils.em - a small collection of useful editing macros */
 /*
 
 source insight 宏定义文件v2.1
@@ -26,6 +26,17 @@ source insight 宏定义文件v2.5
 source insight 宏定义文件v2.6
 添加选择行打印printf变量
 
+source insight 宏定义文件v2.7
+修复复制当前行异常(第一行为空)不生效问题
+删除duplicateselect、duplicateselect2
+
+source insight 宏定义文件v2.8
+添加case break生成代码（C）
+
+source insight 宏定义文件v2.9
+添加函数注释 InsertFunHeader2
+
+
 
 
 常用规则           快捷键定义
@@ -34,14 +45,14 @@ UnMultiLineComment Ctrl + Q  反多行注释
 duplicateselect    Ctrl + D 拷贝一份内容到当前选中内容后面
 deleteline         Ctrl + L 删除当前行
 enternewline       Ctrl + Enter 换一新行
-InsertFileHeader               插入文件头
-InsertFunHeader                插入函数头
+InsertFileHeader2              插入文件头
+InsertFunHeader2               插入函数头
 printvar()           Ctrl+6    打印变量
 addmultiline()       Ctrl+7    插入多行空行
 addxinghaocomment()  Ctrl+8    插入多行*号注释
-上移一行           Ctrl+Up
-下移一行           Ctrl+Down
-
+moveup               Ctrl+Up
+movedown             Ctrl+Down
+caseBreakForC        Alt+C     添加case break样式(c)
 
 */
 
@@ -99,7 +110,7 @@ Saves a file buffer to disk. Hbuf is the buffer handle.
    to your email name.  eg. set MYNAME=raygr
 */
 
-macro InsertFileHeader()
+macro InsertFileHeader2()
 {
     szMyName = getenv(MyName)
 
@@ -143,7 +154,7 @@ macro InsertFileHeader()
     if (Day < 10)
         szDay = "0@Day@"
     else
-        szDay = Day    
+        szDay = Day
 
 	fileLen = strlen(fileName)
 	UpFileName = toupper (strtrunc (fileName, fileLen - 2))
@@ -164,7 +175,7 @@ macro InsertFileHeader()
 
 	}
 //	msg(headFileFlag)
-	
+
     InsBufLine(hbuf, 5,  "** 完成日期: @Year@年@Month@月@szDay@日")
     InsBufLine(hbuf, 6,  "** 修改记录: ")
     InsBufLine(hbuf, 7,  "** 修改记录: ")
@@ -175,14 +186,14 @@ macro InsertFileHeader()
     if(headFileFlag > 0)
     {
     	InsBufLine(hbuf, 12, "***************************************************************************/")
-		InsBufLine(hbuf, 13, "#ifndef __@UpFileName@_H__")
-		InsBufLine(hbuf, 14, "#define __@UpFileName@_H__")
+		InsBufLine(hbuf, 13, "#ifndef @UpFileName@_H")
+		InsBufLine(hbuf, 14, "#define @UpFileName@_H")
     }
     else
     {
         InsBufLine(hbuf, 12, "***************************************************************************/")
-	    InsBufLine(hbuf, 13, "")  
-	    InsBufLine(hbuf, 14, "")	    
+	    InsBufLine(hbuf, 13, "")
+	    InsBufLine(hbuf, 14, "")
     }
 
     InsBufLine(hbuf, 15, "/*****************************头文件****************************************/")
@@ -191,17 +202,17 @@ macro InsertFileHeader()
     InsBufLine(hbuf, 18, "")
     InsBufLine(hbuf, 19, "/*****************************结构体或类型定义*******************************/")
     InsBufLine(hbuf, 20, "")
-    InsBufLine(hbuf, 21, "")    
+    InsBufLine(hbuf, 21, "")
     InsBufLine(hbuf, 22, "/*****************************全局变量****************************************/")
     InsBufLine(hbuf, 23, "")
-    InsBufLine(hbuf, 24, "")    
+    InsBufLine(hbuf, 24, "")
     InsBufLine(hbuf, 25, "/*****************************本地变量****************************************/")
     InsBufLine(hbuf, 26, "")
-    InsBufLine(hbuf, 27, "")    
+    InsBufLine(hbuf, 27, "")
     InsBufLine(hbuf, 28, "/*****************************函数或类声明****************************************/")
     InsBufLine(hbuf, 29, "")
     InsBufLine(hbuf, 30, "")
-	InsBufLine(hbuf, 31, "/*****************************函数或类实现****************************************/")    
+	InsBufLine(hbuf, 31, "/*****************************函数或类实现****************************************/")
     InsBufLine(hbuf, 32, "")
     InsBufLine(hbuf, 33, "")
     InsBufLine(hbuf, 34, "")
@@ -217,26 +228,26 @@ macro InsertFileHeader()
     InsBufLine(hbuf, 44, "/*****************************宏定义****************************************/")
     InsBufLine(hbuf, 45, "")
     InsBufLine(hbuf, 46, "")
-	InsBufLine(hbuf, 47, "#ifdef __cplusplus") 
+	InsBufLine(hbuf, 47, "#ifdef __cplusplus")
 	InsBufLine(hbuf, 48, "extern \"C\" {")
 	InsBufLine(hbuf, 49, "#endif")
-	InsBufLine(hbuf, 50, "")	
+	InsBufLine(hbuf, 50, "")
     InsBufLine(hbuf, 51, "/*****************************结构体或类型定义*******************************/")
     InsBufLine(hbuf, 52, "")
-    InsBufLine(hbuf, 53, "")    
+    InsBufLine(hbuf, 53, "")
     InsBufLine(hbuf, 54, "/*****************************全局变量****************************************/")
     InsBufLine(hbuf, 55, "")
-    InsBufLine(hbuf, 56, "")    
+    InsBufLine(hbuf, 56, "")
     InsBufLine(hbuf, 57, "/*****************************本地变量****************************************/")
     InsBufLine(hbuf, 58, "")
-    InsBufLine(hbuf, 59, "")    
+    InsBufLine(hbuf, 59, "")
     InsBufLine(hbuf, 60, "/*****************************函数或类声明****************************************/")
     InsBufLine(hbuf, 61, "")
     InsBufLine(hbuf, 62, "")
-	InsBufLine(hbuf, 63, "/*****************************函数或类实现****************************************/")    
+	InsBufLine(hbuf, 63, "/*****************************函数或类实现****************************************/")
     InsBufLine(hbuf, 64, "")
 	InsBufLine(hbuf, 65, "")
-	InsBufLine(hbuf, 66, "#ifdef __cplusplus") 
+	InsBufLine(hbuf, 66, "#ifdef __cplusplus")
 	InsBufLine(hbuf, 67, "}")
 	InsBufLine(hbuf, 68, "#endif")
 	InsBufLine(hbuf, 69, "")
@@ -248,7 +259,7 @@ macro InsertFileHeader()
     if(headFileFlag > 0)
     {
 		InsBufLine(hbuf, 74, "#endif /* @fileName@ */")
-		InsBufLine(hbuf, 75, "")		
+		InsBufLine(hbuf, 75, "")
     }
 }
 
@@ -605,19 +616,22 @@ macro duplicateline()
 	// get current cursor postion
     IchFirst = GetWndSelIchFirst (hwnd)
     IchLast = GetWndSelIchLim (hwnd)
-    //msg ("@IchFirst@ IchFirst.")
-    //msg ("@IchLast@ IchLast .")
+//    msg ("@IchFirst@ IchFirst.")
+//    msg ("@IchLast@ IchLast .")
 
 
-	if(sellen > 0
-)
+	if(sellen > 0 || LnLast > LnFirst)
 	{
+//	    msg ("@LnFirst@ LnFirst.")
+//	    msg ("@LnLast@ LnLast .")
+
+//		InsBufLine(hbufCur,LnLast + isym + 1, selecttext)
 		loops = LnLast - LnFirst
 		while (isym <= loops)
 		{
 //				AppendBufLine(hbufOutput, GetBufSymName(hbuf, isym))
-		InsBufLine(hbufCur,LnLast + isym + 1, GetBufLine(hbufCur,LnFirst + isym))
-		isym = isym + 1
+			InsBufLine(hbufCur,LnLast + isym + 1, GetBufLine(hbufCur,LnFirst + isym))
+			isym = isym + 1
 		}
 	}
 	else
@@ -826,7 +840,7 @@ macro UnMultiLineComment()
 				break
 			}
         }
-        
+
 
         if(StrMid(buf, Cn+0, Cn+1) == "/"){       //需要取消注释,防止只有单字符的行
             if(StrMid(buf, Cn+1, Cn+2) == "/"){
@@ -1015,7 +1029,7 @@ macro InsertFunHeader()
 #########################################################
 #######  Set szMyName variable to your name    ########
 #######  for example    szMyName = "t357"     ########
-#########################################################   
+#########################################################
 #########################################################*/
 	szMyName = "" //empty
 	// Get a handle to the current file buffer and the name
@@ -1056,6 +1070,62 @@ macro InsertFunHeader()
 }
 
 
+
+/******************************************************************************
+ * InsFunHeader2 -- insert function's information extend
+ *
+ * modification history
+ * --------------------
+ * 01a, 23mar2003, added DESCRIPTION by t357
+ * 01a, 05mar2003, t357 written
+ * --------------------
+ ******************************************************************************/
+macro InsertFunHeader2()
+{
+	// Get the owner's name from the environment variable: szMyName.
+	// If the variable doesn't exist, then the owner field is skipped.
+	/*#########################################################
+#########################################################
+#######  Set szMyName variable to your name    ########
+#######  for example    szMyName = "t357"     ########
+#########################################################
+#########################################################*/
+	szMyName = "" //empty
+	// Get a handle to the current file buffer and the name
+	// and location of the current symbol where the cursor is.
+	hbuf = GetCurrentBuf() //get file buffer
+	szFunc = GetCurSymbol() //get the curren symbol where the cursor is.
+	ln = GetSymbolLine(szFunc)
+	// Get current time
+	szTime = GetSysTime(1)
+	Day = szTime.Day
+	Month = szTime.Month
+	Year = szTime.Year
+	if (Day < 10)
+	szDay = "0@Day@"
+	else
+	szDay = Day
+	szMonth = (Month)
+	//szInf = Ask("Enter the information of function:")
+	//szDescription = Ask("Enter the description of function:")
+	// begin assembling the title string
+	sz = "/******************************************************************************"
+	InsBufLine(hbuf, ln, sz)
+	InsBufLine(hbuf, ln + 1, "* 函数名称:@szFunc@")
+	InsBufLine(hbuf, ln + 2, "* 功能描述:   ")
+	InsBufLine(hbuf, ln + 3, "* 输入参数: ")
+    InsBufLine(hbuf, ln + 4, "*           xx: ")
+	InsBufLine(hbuf, ln + 5, "* 输出参数: 无")
+	InsBufLine(hbuf, ln + 6, "* 返回结果: 0-成功,其它-失败")
+	InsBufLine(hbuf, ln + 7, "* 其它说明:")
+	InsBufLine(hbuf, ln + 8, "* 修改日期        版本号    修改人      修改内容")
+	InsBufLine(hbuf, ln + 9, "* ---------------------------------------------------------------------------")
+	InsBufLine(hbuf, ln + 10, "* @Year@/@szMonth@/@szDay@     v1.0             创建")
+	InsBufLine(hbuf, ln + 11, "******************************************************************************/")
+	// put the insertion point inside the header comment
+	SetBufIns(hbuf, ln + 1, strlen(szFunc) + strlen(szInf) + 8)
+}
+
 macro AskSysmbol()
 {
 	symbolname = Ask("What symbol do you want to locate?")
@@ -1070,8 +1140,8 @@ macro AskSysmbol()
 	    while (ichild < cchild)
 	        {
 	        childsym = SymListItem(hsyml, ichild)
-	        Msg (childsym.symbol # " was found in " 
-	            # childsym.file # " at line " # 
+	        Msg (childsym.symbol # " was found in "
+	            # childsym.file # " at line " #
 	childsym.lnFirst)
 	        ichild = ichild + 1
 	        }
@@ -1097,11 +1167,11 @@ macro addmultiline()
     Ln = Lnfirst
     buf = GetBufLine(hbuf, Ln)
     len = strlen(buf)
-    
+
 	nums = Ask("prepare add multi lines, Input Add Line Num:")
 	if (nums != "")
 	{
-		
+
 	}
     while(Ln <= Lnfirst + nums) {
     	showtext=""
@@ -1109,9 +1179,9 @@ macro addmultiline()
         Ln = Ln + 1
     }
 	SaveBuf(hbuf)
-	
+
 //    Save_Tabs_To_Spaces()
-    
+
 }
 
 
@@ -1132,7 +1202,7 @@ macro addxinghaocomment()
     Ln = Lnfirst
     buf = GetBufLine(hbuf, Ln)
     len = strlen(buf)
-    
+
 	nums = Ask("prepare add xinghao comment, Input Add Line Num:")
 	if (nums == "")
 	{
@@ -1145,13 +1215,13 @@ macro addxinghaocomment()
 	InsBufLine(hbuf,Ln, showtextFirst)
 	Ln = Ln + 1
     while(Ln <= Lnfirst + nums - 2) {
-    	
+
         InsBufLine(hbuf,Ln, showtextMiddle)
         Ln = Ln + 1
     }
     InsBufLine(hbuf,Ln, showtextLast)
 	SaveBuf(hbuf)
-	 
+
 }
 
 //打印变量
@@ -1182,12 +1252,12 @@ macro printvar()
     rightsign = ");"
     result = ""
 
-	
+
     newWrFirstLn = Lnlast + 1
     newWrLastLn  = newWrFirstLn + Lnlast - Lnfirst
     newWrLn = newWrFirstLn
 	count=0
-	
+
     while(Ln <= Lnlast) {
         buf = GetBufLine(hbuf, Ln)  //取Ln对应的行
         if(buf ==""){                   //跳过空行
@@ -1198,7 +1268,7 @@ macro printvar()
         len = strlen(buf)
 //		msg(cat("length is:",len))
 		tn = len
-		
+
 		lastvarstartpos = 0
 		lastvarendpos = 0
 		varname=""
@@ -1206,7 +1276,7 @@ macro printvar()
 		while(tn > 0)
 		{
 			chr = strmid(buf, tn-1, tn)
-//			if(("(" == chr) 
+//			if(("(" == chr)
 //			||(")" == chr))
 //			{
 //				break
@@ -1223,7 +1293,7 @@ macro printvar()
 //				msg(cat("lastvar pos start:",lastvarstartpos))
 				break
 			}
-			
+
 			tn = tn-1
 		}
 
@@ -1234,12 +1304,12 @@ macro printvar()
 			result = cat(result,midstr)
 			result = cat(result,lastword)
 			result = cat(result,rightsign)
-			
+
 //			msg(result)
 			InsBufLine(hbuf,newWrLn, result)
 			count = count + 1
 		}
-		
+
         Ln = Ln + 1
         newWrLn = newWrLn + 1
     }
@@ -1252,5 +1322,82 @@ macro printvar()
 	SaveBuf(hbuf)
 }
 
+//case break for c/c++
+macro caseBreakForC()
+{
+    hwnd = GetCurrentWnd()
+    selection = GetWndSel(hwnd)
+    LnFirst =GetWndSelLnFirst(hwnd)      //取首行行号
+    LnLast =GetWndSelLnLast(hwnd)      //取末行行号
+    hbuf = GetCurrentBuf()
 
+//	new buffer
+	result = ""
 
+    if(GetBufLine(hbuf, 0) ==""){
+        stop
+    }
+
+    Ln = Lnfirst
+    LnNew = Lnlast + 1
+    buf = GetBufLine(hbuf, Ln)
+    len = strlen(buf)
+
+//	msg ("@LnFirst@ LnFirst .")
+//	msg ("@LnLast@ LnLast .")
+
+    while(Ln <= Lnlast) {
+        buf = GetBufLine(hbuf, Ln)  //取Ln对应的行
+        if(Ln == Lnlast)
+        {
+			//最后一行继续处理
+        }
+        else if(buf ==""){                   //跳过空行
+            Ln = Ln + 1
+            continue
+        }
+
+        //第一行为case关键字
+		if(Ln == LnFirst)
+		{
+			result = cat(result, "case( ")
+			result = cat(result, buf)
+			result = cat(result, ")")
+
+			InsBufLine(hbuf, LnNew, result)
+			LnNew = LnNew + 1
+			InsBufLine(hbuf, LnNew, "{")
+			LnNew = LnNew + 1
+		}
+		else if(buf !="")
+		{//case branch
+			result = ""
+			result = cat(result, "case ")
+			result = cat(result, buf)
+			result = cat(result, ":")
+
+			InsBufLine(hbuf, LnNew, result)
+			LnNew = LnNew + 1
+			InsBufLine(hbuf, LnNew, "")
+			LnNew = LnNew + 1
+			InsBufLine(hbuf, LnNew, "    break;")
+			LnNew = LnNew + 1
+		}
+		//default分支
+		if(Ln == Lnlast)
+		{
+			InsBufLine(hbuf, LnNew, "default:")
+			LnNew = LnNew + 1
+			InsBufLine(hbuf, LnNew, "")
+			LnNew = LnNew + 1
+			InsBufLine(hbuf, LnNew, "    break;")
+			LnNew = LnNew + 1
+			InsBufLine(hbuf, LnNew, "")
+			LnNew = LnNew + 1
+			InsBufLine(hbuf, LnNew, "}")
+			LnNew = LnNew + 1
+		}
+
+        Ln = Ln + 1
+    }
+}
