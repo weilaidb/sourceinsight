@@ -936,9 +936,6 @@ macro InsertGtestCase123()
 
 	InsBufLine(hbuf, ln + 23, "}")
 
-
-	// put the insertion point inside the header comment
-	//SetBufIns(hbuf, ln + 1, strlen(szFunc) + strlen(szInf) + 8)
 }
 
 
@@ -1065,6 +1062,137 @@ macro InsertGtestCase1_6()
 
 	// put the insertion point inside the header comment
 	//SetBufIns(hbuf, ln + 1, strlen(szFunc) + strlen(szInf) + 8)
+}
+
+macro InsertCxxClassDeclare()
+{
+	// Get the owner's name from the environment variable: szMyName.
+	// If the variable doesn't exist, then the owner field is skipped.
+	/*#########################################################
+#########################################################
+#######  Set szMyName variable to your name    ########
+#######  for example    szMyName = "t357"     ########
+#########################################################
+#########################################################*/
+	szMyName = "" //empty
+	// Get a handle to the current file buffer and the name
+	// and location of the current symbol where the cursor is.
+	hbuf = GetCurrentBuf() //get file buffer
+	ln = GetBufLnCur(hbuf)
+	
+	szClassName = Ask("prepare to generate class declare, Enter ClassName, eg CBase")
+	if("" == szClassName)
+	{
+		Msg ("input is empty")
+		return
+	}
+	full_name = szClassName
+
+	InsBufLine(hbuf, ln + 1, "#include <iostream>")
+
+	InsBufLine(hbuf, ln + 2, "#include <string>")
+
+	InsBufLine(hbuf, ln + 3, "#include <map>")
+
+	InsBufLine(hbuf, ln + 4, "")
+
+	InsBufLine(hbuf, ln + 5, "class " # full_name)
+
+	InsBufLine(hbuf, ln + 6, "{")
+
+	InsBufLine(hbuf, ln + 7, "public:")
+
+	InsBufLine(hbuf, ln + 8, "    " # full_name # "();")
+
+	InsBufLine(hbuf, ln + 9, "    static unsigned int init();")
+
+	InsBufLine(hbuf, ln + 10, "    static unsigned int clear();")
+
+	InsBufLine(hbuf, ln + 11, "    static unsigned int print();")
+
+	InsBufLine(hbuf, ln + 12, "")
+
+	InsBufLine(hbuf, ln + 13, "private:")
+
+	InsBufLine(hbuf, ln + 14, "")
+
+	InsBufLine(hbuf, ln + 15, "};")
+
+
+
+}
+
+macro InsertCxxClassImplement()
+{
+	// Get the owner's name from the environment variable: szMyName.
+	// If the variable doesn't exist, then the owner field is skipped.
+	/*#########################################################
+#########################################################
+#######  Set szMyName variable to your name    ########
+#######  for example    szMyName = "t357"     ########
+#########################################################
+#########################################################*/
+	szMyName = "" //empty
+	// Get a handle to the current file buffer and the name
+	// and location of the current symbol where the cursor is.
+	hbuf = GetCurrentBuf() //get file buffer
+	ln = GetBufLnCur(hbuf)
+	
+	szClassName = Ask("prepare to generate class implement, Enter ClassName, eg CBase")
+	if("" == szClassName)
+	{
+		Msg ("input is empty")
+		return
+	}
+	full_name = szClassName
+	namelowercase = tolower (full_name) # ".h"
+
+	InsBufLine(hbuf, ln + 1, "#include \"" # namelowercase # "\"")
+
+	InsBufLine(hbuf, ln + 2, "")
+
+	InsBufLine(hbuf, ln + 3, "")
+
+	InsBufLine(hbuf, ln + 4, full_name # "::" # full_name # "()")
+
+	InsBufLine(hbuf, ln + 5, "{")
+
+	InsBufLine(hbuf, ln + 6, "")
+
+	InsBufLine(hbuf, ln + 7, "}")
+
+	InsBufLine(hbuf, ln + 8, "")
+
+	InsBufLine(hbuf, ln + 9, "unsigned int "# full_name # "::init()")
+
+	InsBufLine(hbuf, ln + 10, "{")
+
+	InsBufLine(hbuf, ln + 11, "return 0;")
+
+	InsBufLine(hbuf, ln + 12, "}")
+
+	InsBufLine(hbuf, ln + 13, "")
+
+	InsBufLine(hbuf, ln + 14, "unsigned int " # full_name # "::print()")
+
+	InsBufLine(hbuf, ln + 15, "{")
+
+	InsBufLine(hbuf, ln + 16, "return 0;")
+
+	InsBufLine(hbuf, ln + 17, "}")
+
+	InsBufLine(hbuf, ln + 18, "")
+
+	InsBufLine(hbuf, ln + 19, "unsigned int " # full_name # "::clear()")
+
+	InsBufLine(hbuf, ln + 20, "{")
+
+	InsBufLine(hbuf, ln + 21, "return 0;")
+
+	InsBufLine(hbuf, ln + 22, "}")
+
+
+
 }
 
 
