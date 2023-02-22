@@ -40,6 +40,8 @@ source insight 宏定义文件v3.0
 添加GTest用例函数 TEST_F,提示用例集名
 InsertGtestCase123
 InsertGtestCase1_6
+InsertGtestClass
+
 
 source insight 宏定义文件v3.1
 添加CPP类声明和实现
@@ -1071,6 +1073,85 @@ macro InsertGtestCase1_6()
 	//SetBufIns(hbuf, ln + 1, strlen(szFunc) + strlen(szInf) + 8)
 }
 
+
+macro InsertGtestClass()
+{
+	// Get the owner's name from the environment variable: szMyName.
+	// If the variable doesn't exist, then the owner field is skipped.
+	/*#########################################################
+#########################################################
+#######  Set szMyName variable to your name    ########
+#######  for example    szMyName = "t357"     ########
+#########################################################
+#########################################################*/
+	szMyName = "" //empty
+	// Get a handle to the current file buffer and the name
+	// and location of the current symbol where the cursor is.
+	hbuf = GetCurrentBuf() //get file buffer
+	ln = GetBufLnCur(hbuf)
+	
+	szKey = Ask("Enter Gtest Class Name, eg HelloWorld")
+	if("" == szKey )
+	{
+		Msg ("input is empty")
+		return
+	}
+	full_name = "An" # szKey 
+
+	InsBufLine(hbuf, ln + 1, "#include \"gmock/gmock.h\"")
+
+	InsBufLine(hbuf, ln + 2, "using namespace ::testing;")
+
+	InsBufLine(hbuf, ln + 3, "")
+
+	InsBufLine(hbuf, ln + 4, "")
+
+	InsBufLine(hbuf, ln + 5, "class " # full_name # " : public Test")
+
+	InsBufLine(hbuf, ln + 6, "{")
+
+	InsBufLine(hbuf, ln + 7, "public:")
+
+	InsBufLine(hbuf, ln + 8, "    " # szKey # " obj;")
+
+	InsBufLine(hbuf, ln + 9, "    void  SetUp() { }")
+
+	InsBufLine(hbuf, ln + 10, "    void  TearDown() { }")
+
+	InsBufLine(hbuf, ln + 11, "};")
+
+	InsBufLine(hbuf, ln + 12, "")
+
+	InsBufLine(hbuf, ln + 13, "TEST_F( " # full_name #  ", T1 )")
+
+	InsBufLine(hbuf, ln + 14, "{")
+
+	InsBufLine(hbuf, ln + 15, "    ASSERT_TRUE(1==1);")
+
+	InsBufLine(hbuf, ln + 16, "    ASSERT_FALSE(1==0);")
+
+	InsBufLine(hbuf, ln + 17, "    ASSERT_THAT(1,Eq(1));")
+
+	InsBufLine(hbuf, ln + 18, "}")
+
+	InsBufLine(hbuf, ln + 19, "")
+
+	InsBufLine(hbuf, ln + 20, "TEST_F( " # full_name #  ", T2 )")
+
+	InsBufLine(hbuf, ln + 21, "{")
+
+	InsBufLine(hbuf, ln + 22, "    ASSERT_TRUE(1==1);")
+
+	InsBufLine(hbuf, ln + 23, "    ASSERT_FALSE(1==0);")
+
+	InsBufLine(hbuf, ln + 24, "    ASSERT_THAT(1,Eq(1));")
+
+	InsBufLine(hbuf, ln + 25, "}")
+
+
+
+
+}
 macro InsertCxxClassDeclare()
 {
 	// Get the owner's name from the environment variable: szMyName.
