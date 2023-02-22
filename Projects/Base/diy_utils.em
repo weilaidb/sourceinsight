@@ -41,6 +41,13 @@ source insight 宏定义文件v3.0
 InsertGtestCase123
 InsertGtestCase1_6
 
+source insight 宏定义文件v3.1
+添加CPP类声明和实现
+InsertCxxClassDeclare
+InsertCxxClassImplement
+InsertGetter
+InsertSetter
+InsertGetterSetter
 
 
 
@@ -1194,6 +1201,148 @@ macro InsertCxxClassImplement()
 
 
 }
+
+macro InsertGetter()
+{
+	// Get the owner's name from the environment variable: szMyName.
+	// If the variable doesn't exist, then the owner field is skipped.
+	/*#########################################################
+#########################################################
+#######  Set szMyName variable to your name    ########
+#######  for example    szMyName = "t357"     ########
+#########################################################
+#########################################################*/
+	szMyName = "" //empty
+	// Get a handle to the current file buffer and the name
+	// and location of the current symbol where the cursor is.
+	hbuf = GetCurrentBuf() //get file buffer
+	ln = GetBufLnCur(hbuf)
+	
+	szKey = Ask("Enter a variable, eg ShowSwitch")
+	if("" == szKey)
+	{
+		Msg ("input is empty")
+		return
+	}
+	full_name = "Get" # szKey # "( )"
+	
+	InsBufLine(hbuf, ln + 1, "unsigned int  g_dw" # szKey # " = 0;")
+
+	InsBufLine(hbuf, ln + 2, "")
+
+	InsBufLine(hbuf, ln + 3, "unsigned int " # full_name )
+
+	InsBufLine(hbuf, ln + 4, "{")
+
+	InsBufLine(hbuf, ln + 5, "    return g_dw" # szKey # ";")
+
+	InsBufLine(hbuf, ln + 6, "}")
+
+	InsBufLine(hbuf, ln + 7, "")
+
+
+}
+
+macro InsertSetter()
+{
+	// Get the owner's name from the environment variable: szMyName.
+	// If the variable doesn't exist, then the owner field is skipped.
+	/*#########################################################
+#########################################################
+#######  Set szMyName variable to your name    ########
+#######  for example    szMyName = "t357"     ########
+#########################################################
+#########################################################*/
+	szMyName = "" //empty
+	// Get a handle to the current file buffer and the name
+	// and location of the current symbol where the cursor is.
+	hbuf = GetCurrentBuf() //get file buffer
+	ln = GetBufLnCur(hbuf)
+	
+	szKey = Ask("Enter a variable, eg ShowSwitch")
+	if("" == szKey)
+	{
+		Msg ("input is empty")
+		return
+	}
+	full_name = "Set" # szKey # "(unsigned int _val)"
+	
+	InsBufLine(hbuf, ln + 1, "unsigned int  g_dw" # szKey # " = 0;")
+
+	InsBufLine(hbuf, ln + 2, "")
+
+	InsBufLine(hbuf, ln + 3, "unsigned int " # full_name )
+
+	InsBufLine(hbuf, ln + 4, "{")
+
+	InsBufLine(hbuf, ln + 5, "    g_dw" # szKey # " = _val;")
+
+	InsBufLine(hbuf, ln + 6, "    return g_dw" # szKey # ";")
+
+	InsBufLine(hbuf, ln + 7, "}")
+
+	InsBufLine(hbuf, ln + 8, "")
+
+
+
+}
+
+macro InsertGetterSetter()
+{
+	// Get the owner's name from the environment variable: szMyName.
+	// If the variable doesn't exist, then the owner field is skipped.
+	/*#########################################################
+#########################################################
+#######  Set szMyName variable to your name    ########
+#######  for example    szMyName = "t357"     ########
+#########################################################
+#########################################################*/
+	szMyName = "" //empty
+	// Get a handle to the current file buffer and the name
+	// and location of the current symbol where the cursor is.
+	hbuf = GetCurrentBuf() //get file buffer
+	ln = GetBufLnCur(hbuf)
+	
+	szKey = Ask("Enter a variable, eg ShowSwitch")
+	if("" == szKey)
+	{
+		Msg ("input is empty")
+		return
+	}
+	full_name = "Get" # szKey # "( )"
+	
+	InsBufLine(hbuf, ln + 1, "unsigned int  g_dw" # szKey # " = 0;")
+
+	InsBufLine(hbuf, ln + 2, "")
+
+	InsBufLine(hbuf, ln + 3, "unsigned int " # full_name )
+
+	InsBufLine(hbuf, ln + 4, "{")
+
+	InsBufLine(hbuf, ln + 5, "    return g_dw" # szKey # ";")
+
+	InsBufLine(hbuf, ln + 6, "}")
+
+	InsBufLine(hbuf, ln + 7, "")
+
+
+
+	full_name = "Set" # szKey # "(unsigned int _val)"
+
+	InsBufLine(hbuf, ln + 8, "unsigned int " # full_name )
+
+	InsBufLine(hbuf, ln + 9, "{")
+
+	InsBufLine(hbuf, ln + 10, "    g_dw" # szKey # " = _val;")
+
+	InsBufLine(hbuf, ln + 11, "    return g_dw" # szKey # ";")
+
+	InsBufLine(hbuf, ln + 12, "}")
+
+	InsBufLine(hbuf, ln + 13, "")
+
+}
+
 
 
 /******************************************************************************
