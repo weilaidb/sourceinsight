@@ -52,7 +52,7 @@ InsertSetter
 InsertGetterSetter
 
 source insight 宏定义文件v3.2
-InsertGTestCasesAutoBySelect :根据选中Word生成相应的Gtest用例，用例集名为An+大写文件名,用例名为选中内容
+InsertGTestCasesAutoBySelect :根据选中Word生成相应的Gtest用例，用例集名为An+大写文件名,用例名为选中内容;光标在开始插入处
 SwitchHeaderSourceForCpp :C/CPP文件在头文件和源文件切换
 
 
@@ -997,6 +997,7 @@ macro LookupRefs (symbol)
 //在文件末尾添加GTEST用例，selecttext为选中关键字名称
 macro InsertGTestCaseAtFileEnd(hbuf, caseSetName, selecttext)
 {
+	hwnd = GetCurrentWnd()
 	total = GetBufLineCount (hbuf)
 	//InsBufLine(hbuf, total, selecttext)
 	//Msg ("total:" # total )
@@ -1012,7 +1013,9 @@ macro InsertGTestCaseAtFileEnd(hbuf, caseSetName, selecttext)
 		total = total
 	}
 
-	InsBufLine(hbuf, total, "TEST_F(" #full_name # ", " # selecttext # ")");total = total + 1
+	oldTotal = total
+	
+	InsBufLine(hbuf, total, "TEST_F(" #full_name # ", " # selecttext # "_OK)");total = total + 1
 	InsBufLine(hbuf, total, "{");total = total + 1
 	InsBufLine(hbuf, total, "");total = total + 1
 	InsBufLine(hbuf, total, "    " # selecttext # ";");total = total + 1
@@ -1044,6 +1047,87 @@ macro InsertGTestCaseAtFileEnd(hbuf, caseSetName, selecttext)
 	InsBufLine(hbuf, total, "    //ASSERT_STRCASENE(str1, str2);");total = total + 1	
 	InsBufLine(hbuf, total,"}");total = total + 1
 	InsBufLine(hbuf, total,"");total = total + 1
+
+
+
+
+
+
+
+
+	InsBufLine(hbuf, total, "TEST_F(" #full_name # ", " # selecttext # "_OK2)");total = total + 1
+	InsBufLine(hbuf, total, "{");total = total + 1
+	InsBufLine(hbuf, total, "");total = total + 1
+	InsBufLine(hbuf, total, "    " # selecttext # ";");total = total + 1
+	InsBufLine(hbuf, total, "    ASSERT_THAT(" # selecttext # ",Eq(0));");total = total + 1
+	InsBufLine(hbuf, total, "    ASSERT_THAT(" # selecttext # ",Eq(0));");total = total + 1
+	InsBufLine(hbuf, total, "");total = total + 1
+	
+	InsBufLine(hbuf, total, "    //ASSERT_TRUE(1==1);");total = total + 1
+	InsBufLine(hbuf, total, "    //ASSERT_FALSE(1==0);");total = total + 1
+	InsBufLine(hbuf, total, "    //ASSERT_THAT(1,Eq(1));");total = total + 1
+	InsBufLine(hbuf, total, "");total = total + 1
+
+//	InsBufLine(hbuf, total, "    //EXPECT_EQ(1, 1); ");total = total + 1
+//	InsBufLine(hbuf, total, "    //EXPECT_GT(std::string("a"), "b");");total = total + 1
+//	InsBufLine(hbuf, total, "    //EXPECT_NE(std::string("a"), "b");");total = total + 1
+//	InsBufLine(hbuf, total, "");total = total + 1
+	
+	InsBufLine(hbuf, total, "//string judge");total = total + 1
+	InsBufLine(hbuf, total, "    //ASSERT_STREQ(expected_str, actual_str);");total = total + 1
+	InsBufLine(hbuf, total, "    //ASSERT_STRNE(str1, str2);");total = total + 1
+	InsBufLine(hbuf, total, "    //ASSERT_STRCASEEQ(expected_str, actual_str);");total = total + 1
+	InsBufLine(hbuf, total, "    //ASSERT_STRCASENE(str1, str2);");total = total + 1
+	InsBufLine(hbuf, total, "");total = total + 1
+	
+	InsBufLine(hbuf, total, "//float judge");total = total + 1
+	InsBufLine(hbuf, total, "    //ASSERT_FLOAT_EQ(1.0000001f, 1.0f);");total = total + 1
+	InsBufLine(hbuf, total, "    //ASSERT_NEAR(1.009f,1.0f,0.01f);");total = total + 1
+	InsBufLine(hbuf, total, "    //ASSERT_STRCASEEQ(expected_str, actual_str);");total = total + 1
+	InsBufLine(hbuf, total, "    //ASSERT_STRCASENE(str1, str2);");total = total + 1	
+	InsBufLine(hbuf, total,"}");total = total + 1
+	InsBufLine(hbuf, total,"");total = total + 1
+
+
+
+
+
+
+
+	InsBufLine(hbuf, total, "TEST_F(" #full_name # ", " # selecttext # "_NG)");total = total + 1
+	InsBufLine(hbuf, total, "{");total = total + 1
+	InsBufLine(hbuf, total, "");total = total + 1
+	InsBufLine(hbuf, total, "    " # selecttext # ";");total = total + 1
+	InsBufLine(hbuf, total, "    ASSERT_THAT(" # selecttext # ",Eq(0));");total = total + 1
+	InsBufLine(hbuf, total, "    ASSERT_THAT(" # selecttext # ",Eq(0));");total = total + 1
+	InsBufLine(hbuf, total, "");total = total + 1
+	
+	InsBufLine(hbuf, total, "    //ASSERT_TRUE(1==1);");total = total + 1
+	InsBufLine(hbuf, total, "    //ASSERT_FALSE(1==0);");total = total + 1
+	InsBufLine(hbuf, total, "    //ASSERT_THAT(1,Eq(1));");total = total + 1
+	InsBufLine(hbuf, total, "");total = total + 1
+
+//	InsBufLine(hbuf, total, "    //EXPECT_EQ(1, 1); ");total = total + 1
+//	InsBufLine(hbuf, total, "    //EXPECT_GT(std::string("a"), "b");");total = total + 1
+//	InsBufLine(hbuf, total, "    //EXPECT_NE(std::string("a"), "b");");total = total + 1
+//	InsBufLine(hbuf, total, "");total = total + 1
+	
+	InsBufLine(hbuf, total, "//string judge");total = total + 1
+	InsBufLine(hbuf, total, "    //ASSERT_STREQ(expected_str, actual_str);");total = total + 1
+	InsBufLine(hbuf, total, "    //ASSERT_STRNE(str1, str2);");total = total + 1
+	InsBufLine(hbuf, total, "    //ASSERT_STRCASEEQ(expected_str, actual_str);");total = total + 1
+	InsBufLine(hbuf, total, "    //ASSERT_STRCASENE(str1, str2);");total = total + 1
+	InsBufLine(hbuf, total, "");total = total + 1
+	
+	InsBufLine(hbuf, total, "//float judge");total = total + 1
+	InsBufLine(hbuf, total, "    //ASSERT_FLOAT_EQ(1.0000001f, 1.0f);");total = total + 1
+	InsBufLine(hbuf, total, "    //ASSERT_NEAR(1.009f,1.0f,0.01f);");total = total + 1
+	InsBufLine(hbuf, total, "    //ASSERT_STRCASEEQ(expected_str, actual_str);");total = total + 1
+	InsBufLine(hbuf, total, "    //ASSERT_STRCASENE(str1, str2);");total = total + 1	
+	InsBufLine(hbuf, total,"}");total = total + 1
+	InsBufLine(hbuf, total,"");total = total + 1
+
+	ScrollWndToLine (hwnd, oldTotal)
 }
 
 macro InsertGTestCasesAutoBySelect()
@@ -1052,6 +1136,7 @@ macro InsertGTestCasesAutoBySelect()
     hbuf = GetCurrentBuf()
     onlyName = ""
     sufix = ""
+    findGTestFileName = ""
     hwnd = GetCurrentWnd()
 	if (hwnd == 0)
 	stop
@@ -1096,7 +1181,15 @@ macro InsertGTestCasesAutoBySelect()
 		//Msg ("onlyName:" # onlyName)
 		//Msg ("sufix:" # sufix )
 
-		findGTestFileName = onlyName # "test" # sufix
+		//如果此为头文件，则找不到，使用.c
+		if(StrMid(sufix, 0, 2) == ".h")
+		{
+			findGTestFileName = onlyName # "test" # ".c"
+		}
+		else
+		{
+			findGTestFileName = onlyName # "test" # sufix
+		}
 		
 		//Msg ("findGTestFileName:" # findGTestFileName )
 
