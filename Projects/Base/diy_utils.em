@@ -52,9 +52,8 @@ InsertSetter
 InsertGetterSetter
 
 source insight 宏定义文件v3.2
-根据选中Word生成相应的Gtest用例，用例集名为An+大写文件名,用例名为选中内容
-InsertGTestCasesAutoBySelect
-
+InsertGTestCasesAutoBySelect :根据选中Word生成相应的Gtest用例，用例集名为An+大写文件名,用例名为选中内容
+SwitchHeaderSourceForCpp :C/CPP文件在头文件和源文件切换
 
 
 常用规则           快捷键定义
@@ -879,6 +878,113 @@ macro UnMultiLineComment()
 
 }
 
+macro SwitchHeaderSourceForCpp()
+{
+	hprj = GetCurrentProj()
+	hbuf = GetCurrentBuf()
+	onlyName = ""
+	sufix = ""
+	findFileName = ""
+    
+	//获取文件名称，并加test.后缀为要查找的文件
+    fPath = GetBufName(hbuf)
+	if (fPath != hNil)
+	{
+		fLen = strlen(fPath)
+
+		len = fLen
+		while(StrMid(fPath, len - 1, len) != "\\")
+		{
+		    len = len - 1
+		}
+		fileName = StrMid(fPath, len, fLen)
+		//Msg ("Whole fileName:" # fileName)
+
+		newlen = fLen
+		while(StrMid(fPath, newlen - 1, newlen) != ".")
+		{
+		    newlen = newlen - 1
+		}
+		onlyName = StrMid(fPath, len, newlen - 1)
+		sufix = StrMid(fPath, newlen - 1, fLen)
+		//Msg ("onlyName:" # onlyName)
+		//Msg ("sufix:" # sufix )
+
+		if(".h" == StrMid(sufix,0,2))
+		{
+			findFileName = onlyName  # ".c"
+		}
+		else if(".c" == StrMid(sufix,0,2))
+		{
+			findFileName = onlyName  # ".h"
+		}
+		else
+		{
+			Msg ("FileType No Support!!")
+			stop
+		}
+
+		//Msg ("findGTestFileName:" # findGTestFileName )
+
+		//LookupRefs(findGTestFileName)
+		
+		//从工程中找这个文件
+		ifileMax = GetProjFileCount (hprj)
+		ifile = 0
+		bFindFlag = 0
+		findFile = ""
+		while (ifile < ifileMax)
+		{
+			findFile = GetProjFileName (hprj, ifile)
+			//Msg ("filename:" # filename )
+			len1 = strlen(findFileName)
+			len2 = strlen(findFile)
+			lenmin = 0
+			if(len1 > len2)
+			{
+				lenmin = len2
+			}
+			else
+			{
+				lenmin = len1
+			}
+			
+			//a.c可以中atest.c或者atest.cpp
+			//strmid (s, ichFirst, ichLim)
+			if(strmid (findFileName, 0, lenmin) == strmid (findFile, 0, lenmin))
+			{
+				bFindFlag = 1
+				hCurOpenBuf = OpenBuf(findFile)
+				if(hCurOpenBuf != hNil)
+				{
+					SetCurrentBuf(hCurOpenBuf)
+					break 
+				}
+				else
+				{
+					//Msg("打开失败")
+				}
+				break
+			}
+
+			ifile = ifile + 1
+		}
+
+
+		if(0 == bFindFlag)
+		{
+			Msg ("Cannot find File:" # findFileName )
+
+		}
+	}
+	else
+	{
+		Msg ("FileName empty!")
+	}
+}
+
+
+
 macro LookupRefs (symbol)
 {
    hbuf = NewBuf("Results") // create output buffer
@@ -942,7 +1048,6 @@ macro InsertGTestCaseAtFileEnd(hbuf, caseSetName, selecttext)
 
 macro InsertGTestCasesAutoBySelect()
 {
-    szMyName = getenv(MyName)
 	hprj = GetCurrentProj()
     hbuf = GetCurrentBuf()
     onlyName = ""
@@ -960,7 +1065,7 @@ macro InsertGTestCasesAutoBySelect()
     
 	if((LnLast != LnFirst) || (IchFirst == IchLast))
 	{
-		Msg ("Please Selecd A CaseKey World!!")
+		Msg ("Please Selecd A CaseKey Word!!")
 		stop
 	}
 	selecttext = GetBufSelText (hbuf)
