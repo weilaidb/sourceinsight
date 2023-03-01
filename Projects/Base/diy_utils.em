@@ -51,6 +51,9 @@ InsertGetter
 InsertSetter
 InsertGetterSetter
 
+source insight 宏定义文件v3.2
+InsertGTestCasesAutoBySelect
+
 
 
 常用规则           快捷键定义
@@ -874,6 +877,181 @@ macro UnMultiLineComment()
     SetWndSel(hwnd, selection)
 
 }
+
+macro LookupRefs (symbol)
+{
+   hbuf = NewBuf("Results") // create output buffer
+   if (hbuf == 0)
+      stop
+   SearchForRefs(hbuf, symbol, 0)
+   SetCurrentBuf(hbuf) // put buffer in a window
+}
+
+//在文件末尾添加GTEST用例，selecttext为选中关键字名称
+macro InsertGTestCaseAtFileEnd(hbuf, caseSetName, selecttext)
+{
+	total = GetBufLineCount (hbuf)
+	//InsBufLine(hbuf, total, selecttext)
+	//Msg ("total:" # total )
+
+	full_name = "An" # toupper(caseSetName)
+
+	if(total >= 2)
+	{
+		total = total - 1
+	}
+	else
+	{
+		total = total
+	}
+
+	InsBufLine(hbuf, total, "TEST_F(" #full_name # ", " # selecttext # ")");total = total + 1
+	InsBufLine(hbuf, total, "{");total = total + 1
+	InsBufLine(hbuf, total, "");total = total + 1
+	InsBufLine(hbuf, total, "    " # selecttext # ";");total = total + 1
+	InsBufLine(hbuf, total, "    ASSERT_THAT(" # selecttext # ",Eq(0));");total = total + 1
+	InsBufLine(hbuf, total, "    ASSERT_THAT(" # selecttext # ",Eq(0));");total = total + 1
+	InsBufLine(hbuf, total, "");total = total + 1
+	
+	InsBufLine(hbuf, total, "    //ASSERT_TRUE(1==1);");total = total + 1
+	InsBufLine(hbuf, total, "    //ASSERT_FALSE(1==0);");total = total + 1
+	InsBufLine(hbuf, total, "    //ASSERT_THAT(1,Eq(1));");total = total + 1
+	InsBufLine(hbuf, total, "");total = total + 1
+
+//	InsBufLine(hbuf, total, "    //EXPECT_EQ(1, 1); ");total = total + 1
+//	InsBufLine(hbuf, total, "    //EXPECT_GT(std::string("a"), "b");");total = total + 1
+//	InsBufLine(hbuf, total, "    //EXPECT_NE(std::string("a"), "b");");total = total + 1
+//	InsBufLine(hbuf, total, "");total = total + 1
+	
+	InsBufLine(hbuf, total, "//string judge");total = total + 1
+	InsBufLine(hbuf, total, "    //ASSERT_STREQ(expected_str, actual_str);");total = total + 1
+	InsBufLine(hbuf, total, "    //ASSERT_STRNE(str1, str2);");total = total + 1
+	InsBufLine(hbuf, total, "    //ASSERT_STRCASEEQ(expected_str, actual_str);");total = total + 1
+	InsBufLine(hbuf, total, "    //ASSERT_STRCASENE(str1, str2);");total = total + 1
+	InsBufLine(hbuf, total, "");total = total + 1
+	
+	InsBufLine(hbuf, total, "//float judge");total = total + 1
+	InsBufLine(hbuf, total, "    //ASSERT_FLOAT_EQ(1.0000001f, 1.0f);");total = total + 1
+	InsBufLine(hbuf, total, "    //ASSERT_NEAR(1.009f,1.0f,0.01f);");total = total + 1
+	InsBufLine(hbuf, total, "    //ASSERT_STRCASEEQ(expected_str, actual_str);");total = total + 1
+	InsBufLine(hbuf, total, "    //ASSERT_STRCASENE(str1, str2);");total = total + 1	
+	InsBufLine(hbuf, total,"}");total = total + 1
+	InsBufLine(hbuf, total,"");total = total + 1
+}
+
+macro InsertGTestCasesAutoBySelect()
+{
+    szMyName = getenv(MyName)
+	hprj = GetCurrentProj()
+    hbuf = GetCurrentBuf()
+    onlyName = ""
+    sufix = ""
+    hwnd = GetCurrentWnd()
+	if (hwnd == 0)
+	stop
+    selection = GetWndSel(hwnd)
+    LnFirst =GetWndSelLnFirst(hwnd)      //取首行行号
+    LnLast =GetWndSelLnLast(hwnd)      //取末行行号
+
+	IchFirst = GetWndSelIchFirst (hwnd)
+    IchLast = GetWndSelIchLim (hwnd)
+	//Msg ("selection:" # selection )
+    
+	if((LnLast != LnFirst) || (IchFirst == IchLast))
+	{
+		Msg ("Please Selecd A CaseKey World!!")
+		stop
+	}
+	selecttext = GetBufSelText (hbuf)
+	
+	//Msg ("selecttext:" # selecttext )
+
+	//获取文件名称，并加test.后缀为要查找的文件
+    fPath = GetBufName(hbuf)
+	if (fPath != hNil)
+	{
+		fLen = strlen(fPath)
+
+		len = fLen
+		while(StrMid(fPath, len - 1, len) != "\\")
+		{
+		    len = len - 1
+		}
+		fileName = StrMid(fPath, len, fLen)
+		//Msg ("Whole fileName:" # fileName)
+
+		newlen = fLen
+		while(StrMid(fPath, newlen - 1, newlen) != ".")
+		{
+		    newlen = newlen - 1
+		}
+		onlyName = StrMid(fPath, len, newlen - 1)
+		sufix = StrMid(fPath, newlen - 1, fLen)
+		//Msg ("onlyName:" # onlyName)
+		//Msg ("sufix:" # sufix )
+
+		findGTestFileName = onlyName # "test" # sufix
+		
+		//Msg ("findGTestFileName:" # findGTestFileName )
+
+		//LookupRefs(findGTestFileName)
+		
+		//从工程中找这个文件
+		ifileMax = GetProjFileCount (hprj)
+		ifile = 0
+		bFindFlag = 0
+		findFile = ""
+		while (ifile < ifileMax)
+		{
+			findFile = GetProjFileName (hprj, ifile)
+			//Msg ("filename:" # filename )
+			len1 = strlen(findGTestFileName)
+			len2 = strlen(findFile)
+			lenmin = 0
+			if(len1 > len2)
+			{
+				lenmin = len2
+			}
+			else
+			{
+				lenmin = len1
+			}
+			
+			//a.c可以中atest.c或者atest.cpp
+			//strmid (s, ichFirst, ichLim)
+			if(strmid (findGTestFileName, 0, lenmin) == strmid (findFile, 0, lenmin))
+			{
+				bFindFlag = 1
+				hCurOpenBuf = OpenBuf(findFile)
+				if(hCurOpenBuf != hNil)
+				{
+					SetCurrentBuf(hCurOpenBuf)
+					InsertGTestCaseAtFileEnd(hCurOpenBuf,onlyName, selecttext)
+					break 
+				}
+				else
+				{
+					//Msg("打开失败")
+				}
+				break
+			}
+
+			ifile = ifile + 1
+		}
+
+
+		if(0 == bFindFlag)
+		{
+			Msg ("Cannot find File:" # findGTestFileName )
+
+		}
+	}
+	else
+	{
+		Msg ("FileName empty!")
+	}
+}
+
 
 macro InsertGtestCase123()
 {
