@@ -52,6 +52,7 @@ InsertSetter
 InsertGetterSetter
 
 source insight 宏定义文件v3.2
+根据选中Word生成相应的Gtest用例，用例集名为An+大写文件名,用例名为选中内容
 InsertGTestCasesAutoBySelect
 
 
