@@ -63,6 +63,14 @@ InsertGTestCasesAutoBySelectMore :
 SwitchHeaderSourceForCpp :C/CPP文件在头文件和源文件切换
 
 
+
+source insight 宏定义文件v3.4
+添加正式文件和测试文件切换
+SwitchHeaderSourceTestForCpp
+
+
+
+
 常用规则           快捷键定义
 MultiLineComment   Ctrl + / 多行注释
 UnMultiLineComment Ctrl + Q  反多行注释
@@ -985,11 +993,12 @@ macro SwitchHeaderSourceForCpp()
 				if(hCurOpenBuf != hNil)
 				{
 					SetCurrentBuf(hCurOpenBuf)
+					//Msg("SetCurrentBuf:" # hCurOpenBuf)
 					break
 				}
 				else
 				{
-					//Msg("打开失败")
+					Msg("打开失败")
 				}
 				break
 			}
@@ -1010,7 +1019,162 @@ macro SwitchHeaderSourceForCpp()
 	}
 }
 
+macro SwitchHeaderSourceTestForCpp()
+{
+	hprj = GetCurrentProj()
+	hbuf = GetCurrentBuf()
+	onlyName = ""
+	sufix = ""
+	findFileName = ""
 
+	//获取文件名称，并加test.后缀为要查找的文件
+    fPath = GetBufName(hbuf)
+	if (fPath != hNil)
+	{
+		fLen = strlen(fPath)
+
+		len = fLen
+		while(StrMid(fPath, len - 1, len) != "\\")
+		{
+		    len = len - 1
+		}
+		fileName = StrMid(fPath, len, fLen)
+		//Msg ("Whole fileName:" # fileName)
+
+		newlen = fLen
+		while(StrMid(fPath, newlen - 1, newlen) != ".")
+		{
+		    newlen = newlen - 1
+		}
+		onlyName = StrMid(fPath, len, newlen - 1)
+		sufix = StrMid(fPath, newlen - 1, fLen)
+		//Msg ("onlyName:" # onlyName)
+		//Msg ("sufix:" # sufix )
+		bTestFile = FALSE;
+
+		if(strlen(onlyName) < 4)
+		{
+//			Msg("not test file");
+//			stop
+		}
+		else
+		{
+			onlyNameLen = strlen(onlyName)
+			if("test" != tolower (StrMid(onlyName, onlyNameLen - 4, onlyNameLen)))
+			{
+	//			Msg("not test file");
+	//			stop
+			}
+			else
+			{
+				bTestFile = TRUE;
+			}
+		}
+
+		//测试文件跳转到正式文件
+		if(TRUE == bTestFile)
+		{
+			onlyName = StrMid(onlyName, 0, onlyNameLen - 4)
+		}
+		else
+		{
+			//正式文件跳转到测试文件
+			onlyName = onlyName # "test"
+		}
+
+		if(".h" == StrMid(sufix,0,2))
+		{
+			findFileName = onlyName  # ".c"
+		}
+		else if(".c" == StrMid(sufix,0,2))
+		{
+			findFileName = onlyName  # ".c"
+		}
+		else
+		{
+			Msg ("FileType No Support!!")
+			stop
+		}
+
+		//Msg ("findGTestFileName:" # findGTestFileName )
+
+		//LookupRefs(findGTestFileName)
+
+		//从工程中找这个文件
+
+		ifileMax = GetProjFileCount (hprj)
+		//Msg ("ifileMax:" # ifileMax )
+		ifile = 0
+		bFindFlag = 0
+		loopFile = ""
+		while (ifile < ifileMax)
+		{
+			loopFile = GetProjFileName (hprj, ifile)
+			//Msg ("filename:" # filename )
+			//findFile 带路径
+			//Msg ("filename:" # findFile # ", ifile:" # ifile# ", lenmin:" # lenmin)
+
+			//处理findFile带路径问题，解析出只带名称 begin
+			fLen2 = strlen(loopFile)
+			len2 = fLen2
+			while(StrMid(loopFile, len2 - 1, len2) != "\\")
+			{
+				len2 = len2 - 1
+				if(0 == len2)
+				{
+					break;
+				}
+			}
+			loopFileTrim = StrMid(loopFile, len2, fLen2)
+			//Msg ("Whole loopFile:" # fileName)
+			//处理findFile带路径问题，解析出只带名称 end
+
+			len1 = strlen(findFileName)
+			len2 = strlen(loopFileTrim)
+			lenmin = 0
+			if(len1 > len2)
+			{
+				lenmin = len2
+			}
+			else
+			{
+				lenmin = len1
+			}
+
+			//a.c可以中atest.c或者atest.cpp
+			//strmid (s, ichFirst, ichLim)
+			if(strmid (findFileName, 0, lenmin) == strmid (loopFileTrim, 0, lenmin))
+			{
+				bFindFlag = 1
+				hCurOpenBuf = OpenBuf(loopFile)
+				if(hCurOpenBuf != hNil)
+				{
+					SetCurrentBuf(hCurOpenBuf)
+					//Msg("SetCurrentBuf:" # hCurOpenBuf)
+					break
+				}
+				else
+				{
+					Msg("打开失败")
+				}
+				break
+			}
+
+			ifile = ifile + 1
+		}
+
+
+		if(0 == bFindFlag)
+		{
+			Msg ("Cannot find File:" # findFileName )
+
+		}
+	}
+	else
+	{
+		Msg ("FileName empty!")
+	}
+}
 
 macro LookupRefs (symbol)
 {
