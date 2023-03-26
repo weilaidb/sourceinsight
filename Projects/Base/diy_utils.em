@@ -70,8 +70,12 @@ SwitchHeaderSourceTestForCpp
 
 
 source insight 宏定义文件v3.5
-InsertGtestCase123More
-InsertTypedefStrcut
+InsertGtestCase123More : 插入较全的测试用例
+InsertTypedefStrcut    : 插入结构体
+InsertTypedefEnum      : 插入枚举
+InsertHeaderCStd       : 插入常用C头文件
+InsertHeaderCxx        : 插入常用CXX头文件
+
 
 
 常用规则           快捷键定义
@@ -2429,6 +2433,267 @@ macro InsertTypedefStrcut()
 
 }
 
+
+macro InsertTypedefEnum()
+{
+	// Get the owner's name from the environment variable: szMyName.
+	// If the variable doesn't exist, then the owner field is skipped.
+	/*#########################################################
+#########################################################
+#######  Set szMyName variable to your name    ########
+#######  for example    szMyName = "t357"     ########
+#########################################################
+#########################################################*/
+	szMyName = "" //empty
+	// Get a handle to the current file buffer and the name
+	// and location of the current symbol where the cursor is.
+	hbuf = GetCurrentBuf() //get file buffer
+	ln = GetBufLnCur(hbuf)
+
+	szGtestCaseKey = Ask("Enter Struct Name, eg DoolSet!!")
+	if("" == szGtestCaseKey)
+	{
+		Msg ("input is empty")
+		return
+	}
+	full_name = "E_" # szGtestCaseKey
+
+	InsBufLine(hbuf, ln + 1, "typedef enum " # full_name  # "{")
+
+	InsBufLine(hbuf, ln + 2, "    ID_CAR,")
+
+	InsBufLine(hbuf, ln + 3, "    ID_TREE,")
+
+	InsBufLine(hbuf, ln + 4, "")
+
+	InsBufLine(hbuf, ln + 5, "}" # full_name  # ";")
+
+
+}
+
+macro InsertHeaderCStd()
+{
+	// Get the owner's name from the environment variable: szMyName.
+	// If the variable doesn't exist, then the owner field is skipped.
+	/*#########################################################
+#########################################################
+#######  Set szMyName variable to your name    ########
+#######  for example    szMyName = "t357"     ########
+#########################################################
+#########################################################*/
+	szMyName = "" //empty
+	// Get a handle to the current file buffer and the name
+	// and location of the current symbol where the cursor is.
+	hbuf = GetCurrentBuf() //get file buffer
+	ln = GetBufLnCur(hbuf)
+
+	//szGtestCaseKey = Ask("Enter Struct Name, eg DoolSet!!")
+	//if("" == szGtestCaseKey)
+	//{
+		//Msg ("input is empty")
+		//return
+	//}
+	//full_name = "E_" # szGtestCaseKey
+
+	InsBufLine(hbuf, ln + 1, "#include <stdio.h>")
+
+	InsBufLine(hbuf, ln + 2, "#include <stdlib.h>")
+
+	InsBufLine(hbuf, ln + 3, "#include <unistd.h>")
+
+	InsBufLine(hbuf, ln + 4, "#include <string.h>")
+
+	InsBufLine(hbuf, ln + 5, "//#include <sys/types.h>")
+
+	InsBufLine(hbuf, ln + 6, "//#include <sys/time.h>")
+
+	InsBufLine(hbuf, ln + 7, "//#include <sys/fcntl.h>")
+
+	InsBufLine(hbuf, ln + 8, "//#include <assert.h>")
+
+	InsBufLine(hbuf, ln + 9, "//#include <stdarg.h>")
+
+	InsBufLine(hbuf, ln + 10, "//#include <assert.h>　　　　//设定插入点")
+
+	InsBufLine(hbuf, ln + 11, "//#include <ctype.h>　　　　 //字符处理")
+
+	InsBufLine(hbuf, ln + 12, "//#include <errno.h>　　　　 //定义错误码")
+
+	InsBufLine(hbuf, ln + 13, "//#include <float.h>　　　　 //浮点数处理")
+
+	InsBufLine(hbuf, ln + 14, "//#include <iso646.h>        //对应各种运算符的宏")
+
+	InsBufLine(hbuf, ln + 15, "//#include <limits.h>　　　　//定义各种数据类型最值的常量")
+
+	InsBufLine(hbuf, ln + 16, "//#include <locale.h>　　　　//定义本地化C函数")
+
+	InsBufLine(hbuf, ln + 17, "//#include <math.h>　　　　　//定义数学函数")
+
+	InsBufLine(hbuf, ln + 18, "//#include <setjmp.h>        //异常处理支持")
+
+	InsBufLine(hbuf, ln + 19, "//#include <signal.h>        //信号机制支持")
+
+	InsBufLine(hbuf, ln + 20, "//#include <stdarg.h>        //不定参数列表支持")
+
+	InsBufLine(hbuf, ln + 21, "//#include <stddef.h>        //常用常量")
+
+	InsBufLine(hbuf, ln + 22, "//#include <stdio.h>　　　　 //定义输入／输出函数")
+
+	InsBufLine(hbuf, ln + 23, "//#include <stdlib.h>　　　　//定义杂项函数及内存分配函数")
+
+	InsBufLine(hbuf, ln + 24, "//#include <string.h>　　　　//字符串处理")
+
+	InsBufLine(hbuf, ln + 25, "//#include <time.h>　　　　　//定义关于时间的函数")
+
+	InsBufLine(hbuf, ln + 26, "//#include <wchar.h>　　　　 //宽字符处理及输入／输出")
+
+	InsBufLine(hbuf, ln + 27, "//#include <wctype.h>　　　　//宽字符分类")
+
+	InsBufLine(hbuf, ln + 28, "")
+
+
+}
+
+
+macro InsertHeaderCxx()
+{
+	// Get the owner's name from the environment variable: szMyName.
+	// If the variable doesn't exist, then the owner field is skipped.
+	/*#########################################################
+#########################################################
+#######  Set szMyName variable to your name    ########
+#######  for example    szMyName = "t357"     ########
+#########################################################
+#########################################################*/
+	szMyName = "" //empty
+	// Get a handle to the current file buffer and the name
+	// and location of the current symbol where the cursor is.
+	hbuf = GetCurrentBuf() //get file buffer
+	ln = GetBufLnCur(hbuf)
+
+	//szGtestCaseKey = Ask("Enter Struct Name, eg DoolSet!!")
+	//if("" == szGtestCaseKey)
+	//{
+		//Msg ("input is empty")
+		//return
+	//}
+	//full_name = "E_" # szGtestCaseKey
+
+	InsBufLine(hbuf, ln + 1, "#include <iostream>")
+
+	InsBufLine(hbuf, ln + 2, "#include <string>")
+
+	InsBufLine(hbuf, ln + 3, "#include <map>")
+
+	InsBufLine(hbuf, ln + 4, "#include <list>")
+
+	InsBufLine(hbuf, ln + 5, "//#include <iomanip>")
+
+	InsBufLine(hbuf, ln + 6, "//#include <iomanip>")
+
+	InsBufLine(hbuf, ln + 7, "//#include <unordered_map>")
+
+	InsBufLine(hbuf, ln + 8, "//#include <algorithm>　　　 //STL 通用算法")
+
+	InsBufLine(hbuf, ln + 9, "//#include <bitset>　　　　　//STL 位集容器")
+
+	InsBufLine(hbuf, ln + 10, "//#include <cctype>         //字符处理")
+
+	InsBufLine(hbuf, ln + 11, "//#include <cerrno> 　　　　 //定义错误码")
+
+	InsBufLine(hbuf, ln + 12, "//#include <cfloat>　　　　 //浮点数处理")
+
+	InsBufLine(hbuf, ln + 13, "//#include <ciso646>         //对应各种运算符的宏")
+
+	InsBufLine(hbuf, ln + 14, "//#include <climits> 　　　　//定义各种数据类型最值的常量")
+
+	InsBufLine(hbuf, ln + 15, "//#include <clocale> 　　　　//定义本地化函数")
+
+	InsBufLine(hbuf, ln + 16, "//#include <cmath> 　　　　　//定义数学函数")
+
+	InsBufLine(hbuf, ln + 17, "//#include <complex>　　　　 //复数类")
+
+	InsBufLine(hbuf, ln + 18, "//#include <csignal>         //信号机制支持")
+
+	InsBufLine(hbuf, ln + 19, "//#include <csetjmp>         //异常处理支持")
+
+	InsBufLine(hbuf, ln + 20, "//#include <cstdarg>         //不定参数列表支持")
+
+	InsBufLine(hbuf, ln + 21, "//#include <cstddef>         //常用常量")
+
+	InsBufLine(hbuf, ln + 22, "//#include <cstdio> 　　　　 //定义输入／输出函数")
+
+	InsBufLine(hbuf, ln + 23, "//#include <cstdlib> 　　　　//定义杂项函数及内存分配函数")
+
+	InsBufLine(hbuf, ln + 24, "//#include <cstring> 　　　　//字符串处理")
+
+	InsBufLine(hbuf, ln + 25, "//#include <ctime> 　　　　　//定义关于时间的函数")
+
+	InsBufLine(hbuf, ln + 26, "//#include <cwchar> 　　　　 //宽字符处理及输入／输出")
+
+	InsBufLine(hbuf, ln + 27, "//#include <cwctype> 　　　　//宽字符分类")
+
+	InsBufLine(hbuf, ln + 28, "//#include <deque>　　　　　 //STL 双端队列容器")
+
+	InsBufLine(hbuf, ln + 29, "//#include <exception>　　　 //异常处理类")
+
+	InsBufLine(hbuf, ln + 30, "//#include <fstream> 　　　 //文件输入／输出")
+
+	InsBufLine(hbuf, ln + 31, "//#include <functional>　　　//STL 定义运算函数（代替运算符）")
+
+	InsBufLine(hbuf, ln + 32, "//#include <limits> 　　　　 //定义各种数据类型最值常量")
+
+	InsBufLine(hbuf, ln + 33, "//#include <list>　　　　　　//STL 线性列表容器")
+
+	InsBufLine(hbuf, ln + 34, "//#include <locale>         //本地化特定信息")
+
+	InsBufLine(hbuf, ln + 35, "//#include <map>　　　　　　 //STL 映射容器")
+
+	InsBufLine(hbuf, ln + 36, "//#include <memory>         //STL通过分配器进行的内存分配")
+
+	InsBufLine(hbuf, ln + 37, "//#include<new>            //动态内存分配")
+
+	InsBufLine(hbuf, ln + 38, "//#include <numeric>         //STL常用的数字操作")
+
+	InsBufLine(hbuf, ln + 39, "//#include <iomanip> 　　　 //参数化输入／输出")
+
+	InsBufLine(hbuf, ln + 40, "//#include <ios>　　　　　　 //基本输入／输出支持")
+
+	InsBufLine(hbuf, ln + 41, "//#include <iosfwd>　　　　　//输入／输出系统使用的前置声明")
+
+	InsBufLine(hbuf, ln + 42, "//#include <iostream> 　　　//数据流输入／输出")
+
+	InsBufLine(hbuf, ln + 43, "//#include <istream>　　　　 //基本输入流")
+
+	InsBufLine(hbuf, ln + 44, "//#include <iterator>        //STL迭代器")
+
+	InsBufLine(hbuf, ln + 45, "//#include <ostream>　　　　 //基本输出流")
+
+	InsBufLine(hbuf, ln + 46, "//#include <queue>　　　　　 //STL 队列容器")
+
+	InsBufLine(hbuf, ln + 47, "//#include <set>　　　　　　 //STL 集合容器")
+
+	InsBufLine(hbuf, ln + 48, "//#include <sstream>　　　　 //基于字符串的流")
+
+	InsBufLine(hbuf, ln + 49, "//#include <stack>　　　　　 //STL 堆栈容器")
+
+	InsBufLine(hbuf, ln + 50, "//#include <stdexcept>　　　 //标准异常类")
+
+	InsBufLine(hbuf, ln + 51, "//#include <streambuf>　　　 //底层输入／输出支持")
+
+	InsBufLine(hbuf, ln + 52, "//#include <valarray>        //对包含值的数组的操作")
+
+	InsBufLine(hbuf, ln + 53, "//#include <typeinfo>        //运行期间类型信息")
+
+	InsBufLine(hbuf, ln + 54, "//#include <utility>　　　　 //STL 通用模板类")
+
+	InsBufLine(hbuf, ln + 55, "")
+
+	InsBufLine(hbuf, ln + 56, "using namespace std;")
+
+	InsBufLine(hbuf, ln + 57, "")
+
+}
 
 /******************************************************************************
 * AutoExpand - Automatically expands C statements
