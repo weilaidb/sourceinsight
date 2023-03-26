@@ -71,7 +71,7 @@ SwitchHeaderSourceTestForCpp
 
 source insight 宏定义文件v3.5
 InsertGtestCase123More
-
+InsertTypedefStrcut
 
 
 常用规则           快捷键定义
@@ -2393,6 +2393,41 @@ macro InsertGetterSetter()
 
 }
 
+
+macro InsertTypedefStrcut()
+{
+	// Get the owner's name from the environment variable: szMyName.
+	// If the variable doesn't exist, then the owner field is skipped.
+	/*#########################################################
+#########################################################
+#######  Set szMyName variable to your name    ########
+#######  for example    szMyName = "t357"     ########
+#########################################################
+#########################################################*/
+	szMyName = "" //empty
+	// Get a handle to the current file buffer and the name
+	// and location of the current symbol where the cursor is.
+	hbuf = GetCurrentBuf() //get file buffer
+	ln = GetBufLnCur(hbuf)
+
+	szGtestCaseKey = Ask("Enter Struct Name, eg DoolSet!!")
+	if("" == szGtestCaseKey)
+	{
+		Msg ("input is empty")
+		return
+	}
+	full_name = "T_" # szGtestCaseKey
+
+	InsBufLine(hbuf, ln + 1, "typedef struct " # full_name  # "{")
+
+	InsBufLine(hbuf, ln + 2, "    WORD32 dwAbc;")
+
+	InsBufLine(hbuf, ln + 3, "")
+
+	InsBufLine(hbuf, ln + 4, "}" # full_name  # ";")
+
+
+}
 
 
 /******************************************************************************
