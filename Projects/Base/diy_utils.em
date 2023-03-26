@@ -69,6 +69,9 @@ source insight 宏定义文件v3.4
 SwitchHeaderSourceTestForCpp
 
 
+source insight 宏定义文件v3.5
+InsertGtestCase123More
+
 
 
 常用规则           快捷键定义
@@ -1775,6 +1778,145 @@ macro InsertGtestCase123()
 }
 
 
+macro InsertGtestCase123More()
+{
+	// Get the owner's name from the environment variable: szMyName.
+	// If the variable doesn't exist, then the owner field is skipped.
+	/*#########################################################
+#########################################################
+#######  Set szMyName variable to your name    ########
+#######  for example    szMyName = "t357"     ########
+#########################################################
+#########################################################*/
+	szMyName = "" //empty
+	// Get a handle to the current file buffer and the name
+	// and location of the current symbol where the cursor is.
+	hbuf = GetCurrentBuf() //get file buffer
+	ln = GetBufLnCur(hbuf)
+	
+	szGtestCaseKey = Ask("Enter Gtest Case KeyWord, eg TestAbc!!")
+	if("" == szGtestCaseKey)
+	{
+		Msg ("input is empty")
+		return
+	}
+	full_name = szGtestCaseKey
+
+InsBufLine(hbuf, ln + 1, "TEST_F(" #full_name # ", T1)")
+
+InsBufLine(hbuf, ln + 2, "{")
+
+InsBufLine(hbuf, ln + 3, "    ASSERT_TRUE(1==1);")
+
+InsBufLine(hbuf, ln + 4, "    ASSERT_FALSE(1==0);")
+
+InsBufLine(hbuf, ln + 5, "    ASSERT_THAT(1,Eq(1));")
+
+InsBufLine(hbuf, ln + 6, "")
+
+InsBufLine(hbuf, ln + 7, "//string judge")
+
+InsBufLine(hbuf, ln + 8, "    //ASSERT_STREQ(expected_str, actual_str);")
+
+InsBufLine(hbuf, ln + 9, "    //ASSERT_STRNE(str1, str2);")
+
+InsBufLine(hbuf, ln + 10, "    //ASSERT_STRCASEEQ(expected_str, actual_str);")
+
+InsBufLine(hbuf, ln + 11, "    //ASSERT_STRCASENE(str1, str2);")
+
+InsBufLine(hbuf, ln + 12, "")
+
+InsBufLine(hbuf, ln + 13, "//float judge")
+
+InsBufLine(hbuf, ln + 14, "    //ASSERT_FLOAT_EQ(1.0000001f, 1.0f);")
+
+InsBufLine(hbuf, ln + 15, "    //ASSERT_NEAR(1.009f,1.0f,0.01f);")
+
+InsBufLine(hbuf, ln + 16, "    //ASSERT_STRCASEEQ(expected_str, actual_str);")
+
+InsBufLine(hbuf, ln + 17, "    //ASSERT_STRCASENE(str1, str2);")
+
+InsBufLine(hbuf, ln + 18, "}")
+
+InsBufLine(hbuf, ln + 19, "")
+
+InsBufLine(hbuf, ln + 20, "TEST_F(" #full_name # ", T2)")
+
+InsBufLine(hbuf, ln + 21, "{")
+
+InsBufLine(hbuf, ln + 22, "    ASSERT_TRUE(1==1);")
+
+InsBufLine(hbuf, ln + 23, "    ASSERT_FALSE(1==0);")
+
+InsBufLine(hbuf, ln + 24, "    ASSERT_THAT(1,Eq(1));")
+
+InsBufLine(hbuf, ln + 25, "")
+
+InsBufLine(hbuf, ln + 26, "//string judge")
+
+InsBufLine(hbuf, ln + 27, "    //ASSERT_STREQ(expected_str, actual_str);")
+
+InsBufLine(hbuf, ln + 28, "    //ASSERT_STRNE(str1, str2);")
+
+InsBufLine(hbuf, ln + 29, "    //ASSERT_STRCASEEQ(expected_str, actual_str);")
+
+InsBufLine(hbuf, ln + 30, "    //ASSERT_STRCASENE(str1, str2);")
+
+InsBufLine(hbuf, ln + 31, "")
+
+InsBufLine(hbuf, ln + 32, "//float judge")
+
+InsBufLine(hbuf, ln + 33, "    //ASSERT_FLOAT_EQ(1.0000001f, 1.0f);")
+
+InsBufLine(hbuf, ln + 34, "    //ASSERT_NEAR(1.009f,1.0f,0.01f);")
+
+InsBufLine(hbuf, ln + 35, "    //ASSERT_STRCASEEQ(expected_str, actual_str);")
+
+InsBufLine(hbuf, ln + 36, "    //ASSERT_STRCASENE(str1, str2);")
+
+InsBufLine(hbuf, ln + 37, "}")
+
+InsBufLine(hbuf, ln + 38, "")
+
+InsBufLine(hbuf, ln + 39, "TEST_F(" #full_name # ", T3)")
+
+InsBufLine(hbuf, ln + 40, "{")
+
+InsBufLine(hbuf, ln + 41, "    ASSERT_TRUE(1==1);")
+
+InsBufLine(hbuf, ln + 42, "    ASSERT_FALSE(1==0);")
+
+InsBufLine(hbuf, ln + 43, "    ASSERT_THAT(1,Eq(1));")
+
+InsBufLine(hbuf, ln + 44, "")
+
+InsBufLine(hbuf, ln + 45, "//string judge")
+
+InsBufLine(hbuf, ln + 46, "    //ASSERT_STREQ(expected_str, actual_str);")
+
+InsBufLine(hbuf, ln + 47, "    //ASSERT_STRNE(str1, str2);")
+
+InsBufLine(hbuf, ln + 48, "    //ASSERT_STRCASEEQ(expected_str, actual_str);")
+
+InsBufLine(hbuf, ln + 49, "    //ASSERT_STRCASENE(str1, str2);")
+
+InsBufLine(hbuf, ln + 50, "")
+
+InsBufLine(hbuf, ln + 51, "//float judge")
+
+InsBufLine(hbuf, ln + 52, "    //ASSERT_FLOAT_EQ(1.0000001f, 1.0f);")
+
+InsBufLine(hbuf, ln + 53, "    //ASSERT_NEAR(1.009f,1.0f,0.01f);")
+
+InsBufLine(hbuf, ln + 54, "    //ASSERT_STRCASEEQ(expected_str, actual_str);")
+
+InsBufLine(hbuf, ln + 55, "    //ASSERT_STRCASENE(str1, str2);")
+
+InsBufLine(hbuf, ln + 56, "}")
+
+
+
+}
 macro InsertGtestCase1_6()
 {
 	// Get the owner's name from the environment variable: szMyName.
