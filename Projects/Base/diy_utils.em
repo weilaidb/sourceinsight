@@ -77,6 +77,14 @@ InsertHeaderCStd       : 插入常用C头文件
 InsertHeaderCxx        : 插入常用CXX头文件
 
 
+source insight 宏定义文件v3.6
+InsertFuncRetWord32NoPara   :插入函数，无参数
+InsertFuncRetWord32Pointer  :插入函数，参数为指针和长度
+
+
+
+
+
 
 常用规则           快捷键定义
 MultiLineComment   Ctrl + / 多行注释
@@ -2692,6 +2700,90 @@ macro InsertHeaderCxx()
 	InsBufLine(hbuf, ln + 56, "using namespace std;")
 
 	InsBufLine(hbuf, ln + 57, "")
+
+}
+
+
+macro InsertFuncRetWord32NoPara()
+{
+	// Get the owner's name from the environment variable: szMyName.
+	// If the variable doesn't exist, then the owner field is skipped.
+	/*#########################################################
+#########################################################
+#######  Set szMyName variable to your name    ########
+#######  for example    szMyName = "t357"     ########
+#########################################################
+#########################################################*/
+	szMyName = "" //empty
+	// Get a handle to the current file buffer and the name
+	// and location of the current symbol where the cursor is.
+	hbuf = GetCurrentBuf() //get file buffer
+	ln = GetBufLnCur(hbuf)
+
+	szGtestCaseKey = Ask("Enter Function Name, eg setName!!")
+	if("" == szGtestCaseKey)
+	{
+		Msg ("input is empty")
+		return
+	}
+	full_name = szGtestCaseKey
+
+	InsBufLine(hbuf, ln + 1, "WORD32 " # full_name  # "()")
+
+	InsBufLine(hbuf, ln + 2, "{")
+
+	InsBufLine(hbuf, ln + 3, "")
+
+	InsBufLine(hbuf, ln + 4, "    return 0;")
+
+	InsBufLine(hbuf, ln + 5, "}")
+}
+
+
+macro InsertFuncRetWord32Pointer()
+{
+	// Get the owner's name from the environment variable: szMyName.
+	// If the variable doesn't exist, then the owner field is skipped.
+	/*#########################################################
+#########################################################
+#######  Set szMyName variable to your name    ########
+#######  for example    szMyName = "t357"     ########
+#########################################################
+#########################################################*/
+	szMyName = "" //empty
+	// Get a handle to the current file buffer and the name
+	// and location of the current symbol where the cursor is.
+	hbuf = GetCurrentBuf() //get file buffer
+	ln = GetBufLnCur(hbuf)
+
+	szGtestCaseKey = Ask("Enter Function Name, eg setName!!")
+	if("" == szGtestCaseKey)
+	{
+		Msg ("input is empty")
+		return
+	}
+	full_name = szGtestCaseKey
+
+	InsBufLine(hbuf, ln + 1, "WORD32 " # full_name  # "(BYTE *pt, WORD32 dwLen)")
+
+	InsBufLine(hbuf, ln + 2, "{")
+
+	InsBufLine(hbuf, ln + 3, "    if( NULL == pt)")
+
+	InsBufLine(hbuf, ln + 4, "    {")
+
+	InsBufLine(hbuf, ln + 5, "        return WORD32_MAX;")
+
+	InsBufLine(hbuf, ln + 6, "    }")
+
+	InsBufLine(hbuf, ln + 7, "")
+
+	InsBufLine(hbuf, ln + 8, "")
+
+	InsBufLine(hbuf, ln + 9, "    return 0;")
+
+	InsBufLine(hbuf, ln + 10, "}")
+
 
 }
 
