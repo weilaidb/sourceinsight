@@ -80,7 +80,7 @@ InsertHeaderCxx        : 插入常用CXX头文件
 source insight 宏定义文件v3.6
 InsertFuncRetWord32NoPara   :插入函数，无参数
 InsertFuncRetWord32Pointer  :插入函数，参数为指针和长度
-
+InsertExpressForLoop        :表达式，for循环
 
 
 
@@ -2783,6 +2783,78 @@ macro InsertFuncRetWord32Pointer()
 	InsBufLine(hbuf, ln + 9, "    return 0;")
 
 	InsBufLine(hbuf, ln + 10, "}")
+
+
+}
+
+
+macro InsertExpressForLoop()
+{
+	// Get the owner's name from the environment variable: szMyName.
+	// If the variable doesn't exist, then the owner field is skipped.
+	/*#########################################################
+#########################################################
+#######  Set szMyName variable to your name    ########
+#######  for example    szMyName = "t357"     ########
+#########################################################
+#########################################################*/
+	szMyName = "" //empty
+	// Get a handle to the current file buffer and the name
+	// and location of the current symbol where the cursor is.
+	hbuf = GetCurrentBuf() //get file buffer
+	ln = GetBufLnCur(hbuf)
+
+	szGtestCaseKey = Ask("Enter loop times, eg dwCount, or global struct variable!!")
+	if("" == szGtestCaseKey)
+	{
+		Msg ("input is empty")
+		return
+	}
+	full_name = szGtestCaseKey
+
+	InsBufLine(hbuf, ln + 1, "    //变量的")
+
+	InsBufLine(hbuf, ln + 2, "    WORD32 dwLp =  0;")
+
+	InsBufLine(hbuf, ln + 3, "    for(dwLp = 0;dwLp < " # full_name  # ";dwLp++)")
+
+	InsBufLine(hbuf, ln + 4, "    {")
+
+	InsBufLine(hbuf, ln + 5, "")
+
+	InsBufLine(hbuf, ln + 6, "")
+
+	InsBufLine(hbuf, ln + 7, "    }")
+
+	InsBufLine(hbuf, ln + 8, "")
+
+	InsBufLine(hbuf, ln + 9, "")
+
+	InsBufLine(hbuf, ln + 10, "    //数组的")
+
+	InsBufLine(hbuf, ln + 11, "    #undef ARRAYSIZE")
+
+	InsBufLine(hbuf, ln + 12, "    #define ARRAYSIZE(A) ((unsigned int)(sizeof(A)/sizeof((A)[0])))")
+
+	InsBufLine(hbuf, ln + 13, "")
+
+	InsBufLine(hbuf, ln + 14, "")
+
+	InsBufLine(hbuf, ln + 15, "")
+
+	InsBufLine(hbuf, ln + 16, "    WORD32 dwLp =  0;")
+
+	InsBufLine(hbuf, ln + 17, "    for(dwLp = 0;dwLp < ARRAYSIZE(" # full_name  # ");dwLp++)")
+
+	InsBufLine(hbuf, ln + 18, "    {")
+
+	InsBufLine(hbuf, ln + 19, "        //printf(\"No:%-03u -- %-03u\n\", dwLp+1, uacArray[dwLp]);")
+
+	InsBufLine(hbuf, ln + 20, "")
+
+	InsBufLine(hbuf, ln + 21, "    }")
+
+
 
 
 }
